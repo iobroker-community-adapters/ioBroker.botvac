@@ -1,0 +1,34 @@
+{
+  "common": {
+    "name": "botvac",
+    "version": "0.1.0",
+    "title": "Neato Botvac Adapter",
+    "desc": {
+      "en": "ioBroker neato botvac Adapter",
+      "de": "ioBroker Neato Botvac Adapter",
+      "ru": "ioBroker Neato Botvac драйвер как образец"
+    },
+    "platform": "Javascript/Node.js",
+    "mode": "daemon",
+    "icon": "botvac.png",
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/Pmant/ioBroker.botvac/master/admin/botvac.png",
+    "keywords": [
+      "botvac",
+      "neato"
+    ],
+    "readme": "https://github.com/Pmant/ioBroker.botvac/blob/master/README.md",
+    "loglevel": "info",
+    "type": "hardware",
+    "restartAdapters": [
+      "vis"
+    ]
+  },
+  "native": {
+    "mail": null,
+    "password": null,
+    "pollInterval": 30000
+  },
+  "objects": [
+  ]
+}
