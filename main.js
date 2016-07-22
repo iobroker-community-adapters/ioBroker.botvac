@@ -546,8 +546,9 @@ function main() {
     });
 }
 
-var pollInterval = adapter.config.pollInterval || 30000;
+
 function update() {
+    var pollInterval = adapter.config.pollInterval || 30000;
     client.getRobots(function (error, robots) {
         if (error || !robots.length) {
             adapter.log.warn('update error or no robot found ' + error);
