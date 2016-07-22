@@ -23,6 +23,7 @@
     "url": "https://github.com/Pmant/ioBroker.botvac"
   },
   "dependencies": {
+    "node-botvac": "^0.1.0"
   },
   "devDependencies": {
       "grunt": "^0.4.5",
