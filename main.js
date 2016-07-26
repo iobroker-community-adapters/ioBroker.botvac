@@ -526,15 +526,15 @@ function main() {
                             }
                         }
                     };
+                    allRobots[robots[i].name] = robots[i];
                 }
             }
             createDevices(devices, function () {
-                adapter.log.info('devices created');
+                adapter.log.info('devices created: ' + robots.length);
                 adapter.getDevices(function (err, devices) {
                     if (Array.isArray(devices)) {
                         for (var i = 0; i < devices.length; i++) {
                             allRobotNames.push(devices[i].common.name);
-                            allRobots[devices[i].common.name] = devices[i];
                         }
                     }
                     //subscribe all states in namespace
