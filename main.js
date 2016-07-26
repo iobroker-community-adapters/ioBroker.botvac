@@ -593,7 +593,7 @@ function updateRobot(robot, callback) {
             return;
         }
         adapter.setState(robot.name + '.status.lastResult', state.result, true);
-        adapter.setState(robot.name + '.status.error', state.result, true);
+        adapter.setState(robot.name + '.status.error', state.error, true);
         adapter.setState(robot.name + '.status.state', state.state, true);
         adapter.setState(robot.name + '.status.action', state.action, true);
         var lastCleaning = state.cleaning.category === 1 ? 'manual' : state.cleaning.category === 2 ? 'auto' : 'spot';
