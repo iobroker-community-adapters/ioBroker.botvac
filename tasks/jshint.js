@@ -12,8 +12,6 @@ module.exports = {
         srcDir + "www/**/*.js",
         '!' + srcDir + "www/lib/**/*.js",
         '!' + srcDir + 'node_modules/**/*.js',
-        '!' + srcDir + 'adapter/*/node_modules/**/*.js',
-        srcDir + 'node_modules/node-botvac/*.js',
-        srcDir + 'node_modules/node-botvac/lib/*.js',
+        '!' + srcDir + 'adapter/*/node_modules/**/*.js'
     ]
 };
