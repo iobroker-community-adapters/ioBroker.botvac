@@ -1,6 +1,6 @@
 {
   "name": "iobroker.botvac",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "ioBroker botvac Adapter",
   "author": {
     "name": "Pmant",
