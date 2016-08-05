@@ -51,6 +51,7 @@ adapter.on('stateChange', function (id, state) {
                             return;
                         }
                         adapter.setState(id, true, true);
+                        adapter.setState(robotName + '.status.isScheduleEnabled', true, true);
                     });
                 } else {
                     allRobots[robotName].disableSchedule(function (error, result) {
@@ -60,6 +61,7 @@ adapter.on('stateChange', function (id, state) {
                             return;
                         }
                         adapter.setState(id, false, true);
+                        adapter.setState(robotName + '.status.isScheduleEnabled', false, true);
                     });
                 }
                 break;
@@ -86,6 +88,7 @@ adapter.on('stateChange', function (id, state) {
                             return;
                         }
                         adapter.setState(id, true, true);
+                        setTimeout(updateRobot(allRobots[robotName]), 2000);
                     });
                 });
                 break;
@@ -112,6 +115,7 @@ adapter.on('stateChange', function (id, state) {
                             return;
                         }
                         adapter.setState(id, true, true);
+                        setTimeout(updateRobot(allRobots[robotName]), 2000);
                     });
                 });
                 break;
@@ -138,6 +142,7 @@ adapter.on('stateChange', function (id, state) {
                             return;
                         }
                         adapter.setState(id, true, true);
+                        setTimeout(updateRobot(allRobots[robotName]), 2000);
                     });
                 });
                 break;
@@ -164,6 +169,7 @@ adapter.on('stateChange', function (id, state) {
                             return;
                         }
                         adapter.setState(id, true, true);
+                        setTimeout(updateRobot(allRobots[robotName]), 2000);
                     });
                 });
                 break;
@@ -190,6 +196,7 @@ adapter.on('stateChange', function (id, state) {
                             return;
                         }
                         adapter.setState(id, true, true);
+                        setTimeout(updateRobot(allRobots[robotName]), 2000);
                     });
                 });
                 break;
@@ -216,6 +223,7 @@ adapter.on('stateChange', function (id, state) {
                             return;
                         }
                         adapter.setState(id, true, true);
+                        setTimeout(updateRobot(allRobots[robotName]), 2000);
                     });
                 });
                 break;
@@ -607,10 +615,26 @@ function updateRobot(robot, callback) {
         adapter.setState(robot.name + '.status.dockHasBeenSeen', state.details.dockHasBeenSeen, true);
         adapter.setState(robot.name + '.status.charge', state.details.charge, true);
         adapter.setState(robot.name + '.status.canStart', state.availableCommands.start, true);
+        if (state.availableCommands.start) {
+            adapter.setState(robot.name + '.commands.clean', false, true);
+            adapter.setState(robot.name + '.commands.cleanSpot', false, true);
+        }
         adapter.setState(robot.name + '.status.canStop', state.availableCommands.stop, true);
+        if (state.availableCommands.stop) {
+            adapter.setState(robot.name + '.commands.stop', false, true);
+        }
         adapter.setState(robot.name + '.status.canPause', state.availableCommands.pause, true);
+        if (state.availableCommands.pause) {
+            adapter.setState(robot.name + '.commands.pause', false, true);
+        }
         adapter.setState(robot.name + '.status.canResume', state.availableCommands.resume, true);
+        if (state.availableCommands.resume) {
+            adapter.setState(robot.name + '.commands.resume', false, true);
+        }
         adapter.setState(robot.name + '.status.canGoToBase', state.availableCommands.goToBase, true);
+        if (state.availableCommands.goToBase) {
+            adapter.setState(robot.name + '.commands.goToBase', false, true);
+        }
         adapter.setState(robot.name + '.status.modelName', state.meta.modelName, true);
         adapter.setState(robot.name + '.status.firmware', state.meta.firmware, true);
         if (typeof callback === 'function') {
