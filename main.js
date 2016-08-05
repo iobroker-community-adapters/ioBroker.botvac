@@ -88,7 +88,9 @@ adapter.on('stateChange', function (id, state) {
                             return;
                         }
                         adapter.setState(id, true, true);
-                        setTimeout(updateRobot(allRobots[robotName]), 2000);
+                        setTimeout(function() {
+                            updateRobot(allRobots[robotName]);
+                        }, 1000);
                     });
                 });
                 break;
@@ -115,7 +117,9 @@ adapter.on('stateChange', function (id, state) {
                             return;
                         }
                         adapter.setState(id, true, true);
-                        setTimeout(updateRobot(allRobots[robotName]), 2000);
+                        setTimeout(function() {
+                            updateRobot(allRobots[robotName]);
+                        }, 1000);
                     });
                 });
                 break;
@@ -142,7 +146,9 @@ adapter.on('stateChange', function (id, state) {
                             return;
                         }
                         adapter.setState(id, true, true);
-                        setTimeout(updateRobot(allRobots[robotName]), 2000);
+                        setTimeout(function() {
+                            updateRobot(allRobots[robotName]);
+                        }, 1000);
                     });
                 });
                 break;
@@ -169,7 +175,9 @@ adapter.on('stateChange', function (id, state) {
                             return;
                         }
                         adapter.setState(id, true, true);
-                        setTimeout(updateRobot(allRobots[robotName]), 2000);
+                        setTimeout(function() {
+                            updateRobot(allRobots[robotName]);
+                        }, 1000);
                     });
                 });
                 break;
@@ -196,7 +204,9 @@ adapter.on('stateChange', function (id, state) {
                             return;
                         }
                         adapter.setState(id, true, true);
-                        setTimeout(updateRobot(allRobots[robotName]), 2000);
+                        setTimeout(function() {
+                            updateRobot(allRobots[robotName]);
+                        }, 1000);
                     });
                 });
                 break;
@@ -223,7 +233,9 @@ adapter.on('stateChange', function (id, state) {
                             return;
                         }
                         adapter.setState(id, true, true);
-                        setTimeout(updateRobot(allRobots[robotName]), 2000);
+                        setTimeout(function() {
+                            updateRobot(allRobots[robotName]);
+                        }, 1000);
                     });
                 });
                 break;
