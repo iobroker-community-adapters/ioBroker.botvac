@@ -13,6 +13,9 @@ var botvac =    require('node-botvac');
 var client =    new botvac.Client();
 var allRobotNames = [];
 var allRobots = {};
+var init = false;
+var polltimer;
+var restartTimer;
 
 // adapter will be restarted automatically every time as the configuration changed, e.g system.adapter.botvac.0
 var adapter = utils.adapter('botvac');
@@ -25,7 +28,7 @@ adapter.on('unload', function (callback) {
 // is called if a subscribed state changes
 adapter.on('stateChange', function (id, state) {
     // you can use the ack flag to detect if it is status (true) or command (false)
-    if (state && !state.ack) {
+    if (init && state && !state.ack) {
         var arr = id.split('.');
         if (arr.length !== 5) {
             return;
@@ -268,20 +271,31 @@ adapter.on('ready', function () {
     main();
 });
 
+function restart(ms) {
+    clearTimeout(restartTimer);
+    clearInterval(polltimer);
+    init = false;
+    restartTimer = setTimeout(main, ms);
+}
+
 function main() {
+    clearInterval(polltimer);
+    allRobotNames = [];
+    allRobots = {};
     var mail = adapter.config.mail;
     var password = adapter.config.password;
 
     client.authorize(mail, password, false, function (error) {
         if (error) {
             adapter.log.warn('login failed');
-            setTimeout(main, 30000);
+            restart(30000);
             return;
         }
         client.getRobots(function (error, robots) {
             if (error || !robots.length) {
                 adapter.log.warn('no robots found');
-                setTimeout(main, 30000);
+                restart(30000);
+                return;
             }
             var devices = {};
             for (var i = 0; i < robots.length; i++) {
@@ -550,7 +564,7 @@ function main() {
                 }
             }
             createDevices(devices, function () {
-                adapter.log.info('devices created: ' + robots.length);
+                adapter.log.info('devices found: ' + robots.length);
                 adapter.getDevices(function (err, devices) {
                     if (Array.isArray(devices)) {
                         for (var i = 0; i < devices.length; i++) {
@@ -559,6 +573,9 @@ function main() {
                     }
                     //subscribe all states in namespace
                     adapter.subscribeStates('*');
+                    init = true;
+                    var pollInterval = adapter.config.pollInterval || 30000;
+                    polltimer = setInterval(update, pollInterval);
                     update();
                 });
             });
@@ -568,11 +585,13 @@ function main() {
 
 
 function update() {
-    var pollInterval = adapter.config.pollInterval || 30000;
+    if (!init) {
+        return;
+    }
     client.getRobots(function (error, robots) {
         if (error || !robots.length) {
             adapter.log.warn('update error or no robot found ' + error);
-            setTimeout(main, 30000);
+            restart(30000);
             return;
         }
         for (var i = 0; i < allRobotNames.length; i++) {
@@ -584,7 +603,7 @@ function update() {
                 }
                 if (allRobotNames.indexOf(robots[j].name) === -1) {
                     adapter.log.warn('new robot found');
-                    setTimeout(main, 5000);
+                    restart(5000);
                     return;
                 }
             }
@@ -597,16 +616,18 @@ function update() {
             adapter.setState(allRobotNames[i] + '.status.reachable', true, true);
             updateRobot(robots[k]);
         }
-        setTimeout(update, pollInterval);
     });
 }
 
 
 function updateRobot(robot, callback) {
+    if (!init) {
+        return;
+    }
     robot.getState(function (error, state) {
         if (error || !state) {
             adapter.log.warn('could not update robot ' + robot.name);
-            setTimeout(main, 5000);
+            restart(adapter.config.pollInterval || 30000);
             if (typeof callback === 'function') {
                 callback('could not update robot' + robot.name);
             }
