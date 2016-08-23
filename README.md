@@ -4,6 +4,9 @@
 
 
 ## Changelog
+### 0.4.0
+(Pmant) reduce update calls (/dashboard)
+
 ### 0.3.0
 (Pmant) fix bug where botvac is not connected to wifi
 

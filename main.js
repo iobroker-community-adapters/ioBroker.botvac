@@ -15,6 +15,7 @@ var allRobotNames = [];
 var allRobots = {};
 var init = false;
 var polltimer;
+var pollInterval;
 var restartTimer;
 
 // adapter will be restarted automatically every time as the configuration changed, e.g system.adapter.botvac.0
@@ -91,7 +92,7 @@ adapter.on('stateChange', function (id, state) {
                             return;
                         }
                         adapter.setState(id, true, true);
-                        setTimeout(function() {
+                        setTimeout(function () {
                             updateRobot(allRobots[robotName]);
                         }, 1000);
                     });
@@ -120,7 +121,7 @@ adapter.on('stateChange', function (id, state) {
                             return;
                         }
                         adapter.setState(id, true, true);
-                        setTimeout(function() {
+                        setTimeout(function () {
                             updateRobot(allRobots[robotName]);
                         }, 1000);
                     });
@@ -149,7 +150,7 @@ adapter.on('stateChange', function (id, state) {
                             return;
                         }
                         adapter.setState(id, true, true);
-                        setTimeout(function() {
+                        setTimeout(function () {
                             updateRobot(allRobots[robotName]);
                         }, 1000);
                     });
@@ -178,7 +179,7 @@ adapter.on('stateChange', function (id, state) {
                             return;
                         }
                         adapter.setState(id, true, true);
-                        setTimeout(function() {
+                        setTimeout(function () {
                             updateRobot(allRobots[robotName]);
                         }, 1000);
                     });
@@ -207,7 +208,7 @@ adapter.on('stateChange', function (id, state) {
                             return;
                         }
                         adapter.setState(id, true, true);
-                        setTimeout(function() {
+                        setTimeout(function () {
                             updateRobot(allRobots[robotName]);
                         }, 1000);
                     });
@@ -236,7 +237,7 @@ adapter.on('stateChange', function (id, state) {
                             return;
                         }
                         adapter.setState(id, true, true);
-                        setTimeout(function() {
+                        setTimeout(function () {
                             updateRobot(allRobots[robotName]);
                         }, 1000);
                     });
@@ -288,13 +289,13 @@ function main() {
     client.authorize(mail, password, false, function (error) {
         if (error) {
             adapter.log.warn('login failed');
-            restart(30000);
+            restart(300000);
             return;
         }
         client.getRobots(function (error, robots) {
             if (error || !robots.length) {
                 adapter.log.warn('no robots found');
-                restart(30000);
+                restart(300000);
                 return;
             }
             var devices = {};
@@ -572,9 +573,10 @@ function main() {
                         }
                     }
                     //subscribe all states in namespace
-                    adapter.subscribeStates('*');
                     init = true;
-                    var pollInterval = adapter.config.pollInterval || 30000;
+                    adapter.subscribeStates('*');
+                    pollInterval = adapter.config.pollInterval || 120000;
+                    if (pollInterval < 60000) pollInterval = 60000;
                     polltimer = setInterval(update, pollInterval);
                     update();
                 });
@@ -585,13 +587,17 @@ function main() {
 
 
 function update() {
-    if (!init) {
-        return;
+    for (var i = 0; i < allRobotNames.length; i++) {
+        updateRobot(allRobots[allRobotNames[i]]);
     }
+
+
+/*
     client.getRobots(function (error, robots) {
+        adapter.log.warn('getRobots!');
         if (error || !robots.length) {
             adapter.log.warn('update error or no robot found ' + error);
-            restart(30000);
+            restart(300000);
             return;
         }
         for (var i = 0; i < allRobotNames.length; i++) {
@@ -617,6 +623,7 @@ function update() {
             updateRobot(robots[k]);
         }
     });
+*/
 }
 
 
@@ -627,12 +634,14 @@ function updateRobot(robot, callback) {
     robot.getState(function (error, state) {
         if (error || !state) {
             adapter.log.warn('could not update robot ' + robot.name);
-            restart(adapter.config.pollInterval || 30000);
+            adapter.setState(robot.name + '.status.reachable', true, false);
+            restart(pollInterval);
             if (typeof callback === 'function') {
                 callback('could not update robot' + robot.name);
             }
             return;
         }
+        adapter.setState(robot.name + '.status.reachable', true, true);
         adapter.setState(robot.name + '.status.lastResult', state.result, true);
         adapter.setState(robot.name + '.status.error', state.error, true);
         adapter.setState(robot.name + '.status.state', state.state, true);
