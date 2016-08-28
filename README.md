@@ -1,6 +1,6 @@
 ![Logo](admin/botvac.png)
 # ioBroker.botvac
-=================
+
 ## Installation
 - Install the adapter
 - fill in your Botvac user credentials
