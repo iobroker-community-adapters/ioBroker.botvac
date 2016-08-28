@@ -1,6 +1,5 @@
 ![Logo](admin/botvac.png)
 # ioBroker.botvac
-=================
 
 ## Installation
 - Install the adapter
@@ -31,22 +30,22 @@
 
 ## Changelog
 ### 0.5.0
-(Pmant) add readme
-(Pmant) change pollInterval to seconds
-(Pmant) change pollInterval min to 60 seconds
+- (Pmant) add readme
+- (Pmant) change pollInterval to seconds
+- (Pmant) change pollInterval min to 60 seconds
 
 ### 0.4.0
-(Pmant) reduce update calls (/dashboard)
+- (Pmant) reduce update calls (/dashboard)
 
 ### 0.3.0
-(Pmant) fix bug where Botvac is not connected to wifi
+- (Pmant) fix bug where Botvac is not connected to wifi
 
 ### 0.2.0
-(Pmant) update status after command
-(Pmant) update commands 
+- (Pmant) update status after command
+- (Pmant) update commands 
 
 ### 0.1.0
-(Pmant) inital commit
+- (Pmant) inital commit
 
 ## License
 The MIT License (MIT)
