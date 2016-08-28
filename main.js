@@ -575,7 +575,8 @@ function main() {
                     //subscribe all states in namespace
                     init = true;
                     adapter.subscribeStates('*');
-                    pollInterval = adapter.config.pollInterval || 120000;
+                    pollInterval = adapter.config.pollInterval || 120;
+                    pollInterval *= 1000;
                     if (pollInterval < 60000) pollInterval = 60000;
                     polltimer = setInterval(update, pollInterval);
                     update();

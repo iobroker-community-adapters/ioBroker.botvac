@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "botvac",
-    "version": "0.4.0",
+    "version": "0.5.0",
     "title": "Neato Botvac Adapter",
     "desc": {
       "en": "ioBroker neato botvac Adapter",
@@ -27,7 +27,7 @@
   "native": {
     "mail": null,
     "password": null,
-    "pollInterval": 30000
+    "pollInterval": 60
   },
   "objects": [
   ]
