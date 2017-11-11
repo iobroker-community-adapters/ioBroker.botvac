@@ -22,7 +22,7 @@
     ],
     "readme": "https://github.com/Pmant/ioBroker.botvac/blob/master/README.md",
     "loglevel": "info",
-    "type": "hardware",
+    "type": "household",
     "restartAdapters": [
       "vis"
     ]
