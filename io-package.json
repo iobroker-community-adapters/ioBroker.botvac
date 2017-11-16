@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "botvac",
-    "version": "0.5.0",
+    "version": "1.0.0",
     "title": "Neato Botvac Adapter",
     "desc": {
       "en": "ioBroker neato botvac Adapter",
