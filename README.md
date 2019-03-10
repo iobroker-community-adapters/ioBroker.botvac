@@ -1,6 +1,6 @@
 ![Logo](admin/botvac.png)
 # ioBroker.botvac
-
+![Number of Installations](http://iobroker.live/badges/botvac-installed.svg) ![Number of Installations](http://iobroker.live/badges/botvac-stable.svg) 
 ## Installation
 - Install the adapter
 - fill in your Botvac user credentials
