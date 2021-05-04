@@ -259,6 +259,10 @@ adapter.on('stateChange', function (id, state) {
                 allRobots[robotName].spotRepeat = state.val;
                 adapter.setState(id, state.val, true);
                 break;
+            case 'noGoLines':
+                allRobots[robotName].noGoLines = state.val;
+                adapter.setState(id, state.val, true);
+                break;
             default:
                 adapter.log.warn('unknown command: ' + command);
                 return;
@@ -294,7 +298,7 @@ function main() {
         }
         client.getRobots(function (error, robots) {
             if (error || !robots.length) {
-                adapter.log.warn('no robots found');
+                adapter.log.warn('no robots found! Err = ' + JSON.stringify(error) + ' robots = ' + JSON.stringify(robots));
                 restart(300000);
                 return;
             }
@@ -337,40 +341,6 @@ function update() {
     for (var i = 0; i < allRobotNames.length; i++) {
         updateRobot(allRobots[allRobotNames[i]]);
     }
-
-
-/*
-    client.getRobots(function (error, robots) {
-        adapter.log.warn('getRobots!');
-        if (error || !robots.length) {
-            adapter.log.warn('update error or no robot found ' + error);
-            restart(300000);
-            return;
-        }
-        for (var i = 0; i < allRobotNames.length; i++) {
-            var k = null;
-            //check if robot retrieved
-            for (var j = 0; j < robots.length; j++) {
-                if (robots[j].name === allRobotNames[i]) {
-                    k = j;
-                }
-                if (allRobotNames.indexOf(robots[j].name) === -1) {
-                    adapter.log.warn('new robot found');
-                    restart(5000);
-                    return;
-                }
-            }
-            //robot not retrieved
-            if (k === null) {
-                adapter.setState(allRobotNames[i] + '.status.reachable', false, true);
-                continue;
-            }
-            //update robot
-            adapter.setState(allRobotNames[i] + '.status.reachable', true, true);
-            updateRobot(robots[k]);
-        }
-    });
-*/
 }
 
 
@@ -388,50 +358,83 @@ function updateRobot(robot, callback) {
             }
             return;
         }
+        //adapter.log.debug('robot: ' + JSON.stringify(robot) + "\n" + ' state:'+ JSON.stringify(state));
         adapter.setState(robot.name + '.status.reachable', true, true);
         adapter.setState(robot.name + '.status.lastResult', state.result, true);
         adapter.setState(robot.name + '.status.error', state.error, true);
+        adapter.setState(robot.name + '.status.alert', state.alert, true);
         adapter.setState(robot.name + '.status.state', state.state, true);
         adapter.setState(robot.name + '.status.action', state.action, true);
-        var lastCleaning = state.cleaning.category === 1 ? 'manual' : state.cleaning.category === 2 ? 'auto' : 'spot';
+        var lastCleaning = state.cleaning.category === 1 ? 'manual' : state.cleaning.category === 2 ? 'house' : state.cleaning.category === 4 ? 'house with nogo' : 'spot';
         lastCleaning += state.cleaning.mode === 1 ? ' eco' : ' turbo';
         lastCleaning += state.cleaning.modifier === 2 ? ' x2' : '';
         adapter.setState(robot.name + '.status.lastCleaning', lastCleaning, true);
-        adapter.setState(robot.name + '.status.isCharging', state.details.isCharging, true);
-        adapter.setState(robot.name + '.status.isDocked', state.details.isDocked, true);
-        adapter.setState(robot.name + '.status.isScheduleEnabled', state.details.isScheduleEnabled, true);
-        adapter.setState(robot.name + '.commands.schedule', state.details.isScheduleEnabled, true);
-        adapter.setState(robot.name + '.status.dockHasBeenSeen', state.details.dockHasBeenSeen, true);
-        adapter.setState(robot.name + '.status.charge', state.details.charge, true);
-        adapter.setState(robot.name + '.status.canStart', state.availableCommands.start, true);
-        if (state.availableCommands.start) {
+        adapter.setState(robot.name + '.status.isCharging', robot.isCharging, true);
+        adapter.setState(robot.name + '.status.isDocked', robot.isDocked, true);
+        adapter.setState(robot.name + '.status.isBinFull', robot.isBinFull, true);
+        adapter.setState(robot.name + '.status.isScheduleEnabled', robot.isScheduleEnabled, true);
+        adapter.setState(robot.name + '.commands.schedule', robot.isScheduleEnabled, true);
+        adapter.setState(robot.name + '.status.dockHasBeenSeen', robot.dockHasBeenSeen, true);
+        adapter.setState(robot.name + '.status.charge', robot.charge, true);
+        adapter.setState(robot.name + '.commands.noGoLines', robot.noGoLines, true);
+        adapter.setState(robot.name + '.status.canStart', robot.canStart, true);
+        if (robot.canStart) {
             adapter.setState(robot.name + '.commands.clean', false, true);
             adapter.setState(robot.name + '.commands.cleanSpot', false, true);
         }
-        adapter.setState(robot.name + '.status.canStop', state.availableCommands.stop, true);
-        if (state.availableCommands.stop) {
+        adapter.setState(robot.name + '.status.canStop', robot.canStop, true);
+        if (robot.canStop) {
             adapter.setState(robot.name + '.commands.stop', false, true);
         }
-        adapter.setState(robot.name + '.status.canPause', state.availableCommands.pause, true);
-        if (state.availableCommands.pause) {
+        adapter.setState(robot.name + '.status.canPause', robot.canPaus, true);
+        if (robot.canPaus) {
             adapter.setState(robot.name + '.commands.pause', false, true);
         }
-        adapter.setState(robot.name + '.status.canResume', state.availableCommands.resume, true);
-        if (state.availableCommands.resume) {
+        adapter.setState(robot.name + '.status.canResume', robot.canResume, true);
+        if (robot.canResume) {
             adapter.setState(robot.name + '.commands.resume', false, true);
         }
-        adapter.setState(robot.name + '.status.canGoToBase', state.availableCommands.goToBase, true);
-        if (state.availableCommands.goToBase) {
+        adapter.setState(robot.name + '.status.canGoToBase', robot.canGoToBase, true);
+        if (robot.canGoToBase) {
             adapter.setState(robot.name + '.commands.goToBase', false, true);
         }
         adapter.setState(robot.name + '.status.modelName', state.meta.modelName, true);
         adapter.setState(robot.name + '.status.firmware', state.meta.firmware, true);
+        adapter.setState(robot.name + '.commands.eco', robot.eco, true);
+        adapter.setState(robot.name + '.commands.spotWidth', robot.spotWidth, true);
+        adapter.setState(robot.name + '.commands.spotHeight', robot.spotHeight, true);
+        adapter.setState(robot.name + '.commands.spotRepeat', robot.spotRepeat, true);
         if (typeof callback === 'function') {
             callback(null);
         }
     });
+    robot.getSchedule(true, function (error, state) {
+        if (error || !state) {
+            adapter.log.warn('could not update robot ' + robot.name);
+            adapter.setState(robot.name + '.status.reachable', true, false);
+            restart(pollInterval);
+            if (typeof callback === 'function') {
+                callback('could not update robot' + robot.name);
+            }
+            return;
+        }
+        if (state.hasOwnProperty('events')) {
+            state.events.forEach(function(weekDay) {
+                if (weekDay.hasOwnProperty('day')) {
+                    if  (weekDay.hasOwnProperty('startTime')) {
+                        adapter.setState(robot.name + '.schedule.' + weekDay.day + '-startTime', weekDay.startTime, true);
+                    }
+                    if  (weekDay.hasOwnProperty('mode')) {
+                        adapter.setState(robot.name + '.schedule.' + weekDay.day + '-mode', weekDay.mode, true);
+                    }
+                    if  (weekDay.hasOwnProperty('boundaryId')) {
+                        adapter.setState(robot.name + '.schedule.' + weekDay.day + '-boundaryId', weekDay.boundaryId, true);
+                    }
+                }
+            });
+        }
+    });
 }
-
 
 const statusROStringText = { common: { type: 'string', read: true, write: false, role: 'text' } };
 const statusRONumberValue = { common: { type: 'number', read: true, write: false, role: 'value' } };
@@ -462,12 +465,14 @@ function prepareRobotsStructure(robots, devices, callback) {
                             },
                             'lastResult': statusROStringText ,
                             'error': statusROStringText,
+                            'alert': statusROStringText,
                             'state': statusRONumberValue,
                             'action': statusRONumberValue,
                             'lastCleaning': statusROStringText,
                             'isCharging': statusROBooleanIndicator ,
                             'isScheduleEnabled': statusROBooleanIndicator,
                             'isDocked': statusROBooleanIndicator,
+                            'isBinFull': statusROBooleanIndicator,
                             'dockHasBeenSeen': statusROBooleanIndicator,
                             'charge': {
                                 common: {
@@ -520,8 +525,49 @@ function prepareRobotsStructure(robots, devices, callback) {
                             'resume': commandRWBooleanSwitch,
                             'stop': commandRWBooleanSwitch,
                             'goToBase': commandRWBooleanSwitch,
+                            'noGoLines': commandRWBooleanSwitch,
                         }
                     }
+                };
+                if (state.hasOwnProperty('availableServices') && state.availableServices.hasOwnProperty('schedule')) {
+                    devices[robot.name]['schedule'] = {
+                        common: 'meta',
+                        states: {}
+                    };
+                    for (var day = 0; day < 7; day++) {
+                        devices[robot.name]['schedule']['states'][day+'-startTime'] = {
+                            common: {
+                                type: 'string',
+                                read: true,
+                                write: false,
+                                def: '',
+                                role: 'text'
+                            }
+                        };
+                        if ((state.availableServices.schedule === 'basic-1') || (state.availableServices.schedule === 'basic-2')) {
+                            devices[robot.name]['schedule']['states'][day+'-mode'] = {
+                                type: 'state',
+                                common: {
+                                    type: 'number',
+                                    read: true,
+                                    write: false,
+                                    role: 'value'
+                                }
+                            };
+                        };
+                        if (state.availableServices.schedule === 'basic-2') {
+                            devices[robot.name]['schedule']['states'][day+'-boundaryId'] = {
+                                type: 'state',
+                                common: {
+                                    type: 'string',
+                                    read: true,
+                                    write: false,
+                                    def: '',
+                                    role: 'text'
+                                }
+                            };
+                        };
+                    };
                 };
                 allRobots[robot.name] = robot;
             }
