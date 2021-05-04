@@ -24,7 +24,7 @@
     "url": "https://github.com/Pmant/ioBroker.botvac"
   },
   "dependencies": {
-    "node-botvac": "Pmant/node-botvac",
+    "node-botvac": "PeterVoronov/node-botvac#0.4.2-schedule-write",
     "@iobroker/adapter-core": "^1.0.3"
   },
   "devDependencies": {
