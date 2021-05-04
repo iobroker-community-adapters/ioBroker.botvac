@@ -564,7 +564,12 @@ function main() {
                     allRobots[robots[i].name] = robots[i];
                 }
             }
-            createDevices(devices, function () {
+            createRobotsObjects(devices, null, null, function (error, result) {
+                if (error) {
+                    adapter.log.warn('can not create appropriate objects! Err = ' + JSON.stringify(error));
+                    restart(300000);
+                    return;
+                }
                 adapter.log.info('devices found: ' + robots.length);
                 adapter.getDevices(function (err, devices) {
                     if (Array.isArray(devices)) {
@@ -686,56 +691,153 @@ function updateRobot(robot, callback) {
     });
 }
 
-function createDevices(devices, callback) {
-    var keys = Object.keys(devices);
-    if (!keys.length) return callback();
-    var device = keys.shift();
-    adapter.getObject(device, function (err, obj) {
-        //next device if device exists
-        if (obj) {
-            delete devices[device];
-            createDevices(devices, callback);
-            return;
-        }
-        //create device
-        adapter.createDevice(device, function () {
-            //create channels for device
-            createChannels(device, devices[device], function () {
-                //next device
-                delete devices[device];
-                createDevices(devices, callback);
+function createRobotsObjects(devices, channels, states, callback) {
+    if (states !== null) {
+        let keys = Object.keys(states);
+        if (keys.length) {
+            let state = keys.shift();
+            let device = Object.keys(devices)[0];
+            let channel = Object.keys(channels)[0];
+            adapter.setObjectNotExists( device + '.' + channel + '.' + state, {type: 'state', common: Object.assign(states[state].common, {name: state})}, function (error, result) {
+                if (error === null) {
+                    if ( (result !== undefined) && (states[state].common.def !== undefined) ) {
+                        //get rid of quality equal 0x20
+                        adapter.setState(device + '.' + channel + '.' + state, states[state].common.def, true);
+                    }
+                    // state exists or created, can process next
+                    delete states[state];
+                    // check, if we have more states under current channel
+                    keys = Object.keys(states);
+                    if (keys.length) {
+                        // we have more states under current channel, lets proceed
+                        createRobotsObjects(devices, channels, states, callback)
+                    }
+                    else {
+                        // all states under current channel were created, can process next channel
+                        delete channels[channel];
+                        // check, if we have more channels under current device
+                        keys = Object.keys(channels);
+                        if (keys.length) {
+                            // we have more channels under current device, lets proceed
+                            createRobotsObjects(devices, channels, null, callback);
+                        }
+                        else {
+                            // all channels under current device were created, can process next device
+                            delete devices[device];
+                            // check, if we have more devices
+                            keys = Object.keys(devices);
+                            if (keys.length) {
+                                // we have more devices, lets proceed
+                                createRobotsObjects(devices, null, null, callback);
+                            }
+                            else {
+                                // all device were processed, lets return result
+                                if (typeof callback === 'function') {
+                                    callback(null, true);
+                                }
+                                else {
+                                    adapter.log.warn('createRobotsObjects(): callback not a function: ' + JSON.stringify(callback));
+                                }
+                            }
+                        }
+                    }
+                }
             });
-        });
-    });
-}
-
-
-function createChannels(device, channels, callback) {
-    var keys = Object.keys(channels);
-    if (!keys.length) return callback();
-    var channel = keys.shift();
-    adapter.createChannel(device, channel, channels[channel].common, function () {
-        //create states
-        createStates(
-            device,
-            channel,
-            channels[channel].states,
-            function () {
-                //create next channel
-                delete channels[channel];
-                createChannels(device, channels, callback);
+        }
+    }
+    else if (channels !== null) {
+        let keys = Object.keys(channels);
+        if (keys.length) {
+            let channel = keys.shift();
+            let device = Object.keys(devices)[0];
+            adapter.setObjectNotExists( device + '.' + channel , {type: 'channel', common: Object.assign(channels[channel].common, {name: channel})}, function (error, result) {
+                if (error === null) {
+                    if ((result === undefined) || (result === null)) {
+                        //channel was exists before, let's check for unsupported states
+                        let statesActual = Object.keys(channels[channel].states);
+                        adapter.getStatesOf(device, channel, function (error, objects) {
+                            if (objects && !error) {
+                                //validate every exsiting state vs supported(Actual)
+                                objects.forEach(function (object) {
+                                    let state = object['common']['name'];
+                                    if (statesActual.indexOf(state) < 0) {
+                                        //state is not supported(Actual)
+                                        adapter.log.warn('Delete state: ' + JSON.stringify(state) + ' with id: ' + object['_id'].split('.').pop());
+                                        //delete obsolete state
+                                        adapter.deleteState(device, channel, object['_id'].split('.').pop());
+                                    }
+                                });
+                            }
+                        });
+                    }
+                    //can initiate create states under channel
+                    createRobotsObjects(devices, channels, channels[channel].states, callback);
+                }
+            });
+        }
+        else {
+            //by code we have no face with such issue, but ...
+            if (typeof callback === 'function') {
+                callback('something wrong with channels : ' + JSON.stringify(channels) + ' for device: ' + JSON.stringify(Object.keys(devices)[0]), false);
             }
-        );
-    });
+            else {
+                adapter.log.warn('createRobotsObjects(): callback not a function: ' + JSON.stringify(callback));
+            }
+        }
+    }
+    else {
+        let keys = Object.keys(devices);
+        //let's check for non-valid(not exits in a cloud) devices
+        let devicesActual = Object.keys(devices);
+        adapter.getDevices(function (error, objects) {
+            if (objects && !error) {
+                //validate every exsiting device
+                objects.forEach(function (object) {
+                    let device = object['common']['name'];
+                    if (devicesActual.indexOf(device) < 0) {
+                        //device is not exits in a cloud
+                        adapter.log.warn('Device' + JSON.stringify(device) + ' with id: ' + object['_id'].split('.').pop() + ' is not exists in cloud any more!');
+                        //delete obsolete state, disabled
+                        //adapter.deleteDevice(device);
+                    }
+                });
+            }
+        });
+        if (keys.length) {
+            let device = keys.shift();
+            adapter.setObjectNotExists( device , {type: 'device', common: {name: device}}, function (error, result) {
+                if (error === null) {
+                    if ((result === undefined) || (result === null)) {
+                        //device was exists before, let's check for unsupported channels
+                        let channelsActual = Object.keys(devices[device]);
+                        adapter.getChannels(device, function (error, objects) {
+                            if (objects && !error) {
+                                //validate every exsiting channel
+                                objects.forEach(function (object) {
+                                    let channel = object['common']['name'];
+                                    if (channelsActual.indexOf(channel) < 0) {
+                                        //channel is not supported (Actual)
+                                        adapter.log.warn('Delete channel: ' + JSON.stringify(channel) + ' with id: ' + object['_id'].split('.').pop());
+                                        //delete obsolete channel
+                                        adapter.deleteChannel(device, object['_id'].split('.').pop());
+                                    }
+                                });
+                            }
+                        });
+                    }
+                    createRobotsObjects(devices, devices[device], null, callback);
+                }
+            });
+        }
+        else {
+            if (typeof callback === 'function') {
+                callback('something wrong with devices: ' + JSON.stringify(devices), false);
+            }
+            else {
+                adapter.log.warn('createRobotsObjects(): callback not a function: ' + JSON.stringify(callback));
+            }
+        }
+    }
 }
 
-function createStates(device, channel, states, callback) {
-    var keys = Object.keys(states);
-    if (!keys.length) return callback();
-    var state = keys.shift();
-    adapter.createState(device, channel, state, states[state].common, function () {
-        //create next state
-        delete states[state];
-        createStates(device, channel, states, callback);
-    });
-}
+
