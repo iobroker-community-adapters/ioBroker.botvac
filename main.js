@@ -26,6 +26,10 @@ adapter.on('unload', function (callback) {
     callback();
 });
 
+
+let reStartTime = new RegExp(/^(\d)\-startTime$/);
+let reTimeValidator = new RegExp(/^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$/);
+
 // is called if a subscribed state changes
 adapter.on('stateChange', function (id, state) {
     // you can use the ack flag to detect if it is status (true) or command (false)
@@ -40,232 +44,295 @@ adapter.on('stateChange', function (id, state) {
         if (allRobotNames.indexOf(robotName) === -1) {
             adapter.log.warn('state change in unknown device: ' + robotName);
             return;
-        } else if (channel !== 'commands') {
+        } else if ((channel !== 'commands') &&  (channel !== 'schedule')){
             adapter.log.warn('state change in unknown channel: ' + channel);
             return;
         }
-
-        switch (command) {
-            case 'schedule':
-                if (state.val) {
-                    allRobots[robotName].enableSchedule(function (error, result) {
-                        if (error || result !== 'ok') {
-                            adapter.log.warn('cannot enable schedule ' + robotName);
-                            adapter.setState(id, false, true);
-                            return;
-                        }
-                        adapter.setState(id, true, true);
-                        adapter.setState(robotName + '.status.isScheduleEnabled', true, true);
-                    });
-                } else {
-                    allRobots[robotName].disableSchedule(function (error, result) {
-                        if (error || result !== 'ok') {
-                            adapter.log.warn('cannot disable schedule ' + robotName);
+        if (channel === 'commands') {
+            switch (command) {
+                case 'schedule':
+                    if (state.val) {
+                        allRobots[robotName].enableSchedule(function (error, result) {
+                            if (error || result !== 'ok') {
+                                adapter.log.warn('cannot enable schedule ' + robotName);
+                                adapter.setState(id, false, true);
+                                return;
+                            }
                             adapter.setState(id, true, true);
+                            adapter.setState(robotName + '.status.isScheduleEnabled', true, true);
+                        });
+                    } else {
+                        allRobots[robotName].disableSchedule(function (error, result) {
+                            if (error || result !== 'ok') {
+                                adapter.log.warn('cannot disable schedule ' + robotName);
+                                adapter.setState(id, true, true);
+                                return;
+                            }
+                            adapter.setState(id, false, true);
+                            adapter.setState(robotName + '.status.isScheduleEnabled', false, true);
+                        });
+                    }
+                    break;
+                case 'clean':
+                    if (!state.val) {
+                        adapter.setState(id, false, true);
+                        adapter.log.warn('use stop state if you want to stop cleaning ' + robotName);
+                        return;
+                    }
+                    updateRobot(allRobots[robotName], function (error) {
+                        if (error) {
                             return;
                         }
-                        adapter.setState(id, false, true);
-                        adapter.setState(robotName + '.status.isScheduleEnabled', false, true);
-                    });
-                }
-                break;
-            case 'clean':
-                if (!state.val) {
-                    adapter.setState(id, false, true);
-                    adapter.log.warn('use stop state if you want to stop cleaning ' + robotName);
-                    return;
-                }
-                updateRobot(allRobots[robotName], function (error) {
-                    if (error) {
-                        return;
-                    }
-                    if (allRobots[robotName].canStart !== true) {
-                        adapter.log.warn('cannot start cleaning ' + robotName);
-                        adapter.setState(id, false, true);
-                        return;
-                    }
-                    //start cleaning
-                    allRobots[robotName].startCleaning(function (error, result) {
-                        if (error || result !== 'ok') {
-                            adapter.log.warn('cannot start cleaning (2) ' + robotName);
+                        if (allRobots[robotName].canStart !== true) {
+                            adapter.log.warn('cannot start cleaning ' + robotName);
                             adapter.setState(id, false, true);
                             return;
                         }
-                        adapter.setState(id, true, true);
-                        setTimeout(function () {
-                            updateRobot(allRobots[robotName]);
-                        }, 1000);
+                        //start cleaning
+                        allRobots[robotName].startCleaning(function (error, result) {
+                            if (error || result !== 'ok') {
+                                adapter.log.warn('cannot start cleaning (2) ' + robotName);
+                                adapter.setState(id, false, true);
+                                return;
+                            }
+                            adapter.setState(id, true, true);
+                            setTimeout(function () {
+                                updateRobot(allRobots[robotName]);
+                            }, 1000);
+                        });
                     });
-                });
-                break;
-            case 'cleanSpot':
-                if (!state.val) {
-                    adapter.setState(id, false, true);
-                    adapter.log.warn('use stop state if you want to stop cleaning ' + robotName);
-                    return;
-                }
-                updateRobot(allRobots[robotName], function (error) {
-                    if (error) {
-                        return;
-                    }
-                    if (allRobots[robotName].canStart !== true) {
-                        adapter.log.warn('cannot start cleaning ' + robotName);
+                    break;
+                case 'cleanSpot':
+                    if (!state.val) {
                         adapter.setState(id, false, true);
+                        adapter.log.warn('use stop state if you want to stop cleaning ' + robotName);
                         return;
                     }
-                    //start cleaning
-                    allRobots[robotName].startSpotCleaning(function (error, result) {
-                        if (error || result !== 'ok') {
-                            adapter.log.warn('cannot start cleaning (2) ' + robotName);
+                    updateRobot(allRobots[robotName], function (error) {
+                        if (error) {
+                            return;
+                        }
+                        if (allRobots[robotName].canStart !== true) {
+                            adapter.log.warn('cannot start cleaning ' + robotName);
                             adapter.setState(id, false, true);
                             return;
                         }
-                        adapter.setState(id, true, true);
-                        setTimeout(function () {
-                            updateRobot(allRobots[robotName]);
-                        }, 1000);
+                        //start cleaning
+                        allRobots[robotName].startSpotCleaning(function (error, result) {
+                            if (error || result !== 'ok') {
+                                adapter.log.warn('cannot start cleaning (2) ' + robotName);
+                                adapter.setState(id, false, true);
+                                return;
+                            }
+                            adapter.setState(id, true, true);
+                            setTimeout(function () {
+                                updateRobot(allRobots[robotName]);
+                            }, 1000);
+                        });
                     });
-                });
-                break;
-            case 'pause':
-                if (!state.val) {
-                    adapter.setState(id, false, true);
-                    adapter.log.warn('use resume or stop state if you want to resume or stop cleaning ' + robotName);
-                    return;
-                }
-                updateRobot(allRobots[robotName], function (error) {
-                    if (error) {
-                        return;
-                    }
-                    if (allRobots[robotName].canPause !== true) {
-                        adapter.log.warn('cannot pause cleaning ' + robotName);
+                    break;
+                case 'pause':
+                    if (!state.val) {
                         adapter.setState(id, false, true);
+                        adapter.log.warn('use resume or stop state if you want to resume or stop cleaning ' + robotName);
                         return;
                     }
-                    //pause cleaning
-                    allRobots[robotName].pauseCleaning(function (error, result) {
-                        if (error || result !== 'ok') {
-                            adapter.log.warn('cannot pause cleaning (2) ' + robotName);
+                updateRobot(allRobots[robotName], function (error) {
+                        if (error) {
+                            return;
+                        }
+                        if (allRobots[robotName].canPause !== true) {
+                            adapter.log.warn('cannot pause cleaning ' + robotName);
                             adapter.setState(id, false, true);
                             return;
                         }
-                        adapter.setState(id, true, true);
-                        setTimeout(function () {
-                            updateRobot(allRobots[robotName]);
-                        }, 1000);
+                        //pause cleaning
+                        allRobots[robotName].pauseCleaning(function (error, result) {
+                            if (error || result !== 'ok') {
+                                adapter.log.warn('cannot pause cleaning (2) ' + robotName);
+                                adapter.setState(id, false, true);
+                                return;
+                            }
+                            adapter.setState(id, true, true);
+                            setTimeout(function () {
+                                updateRobot(allRobots[robotName]);
+                            }, 1000);
+                        });
                     });
-                });
-                break;
-            case 'resume':
-                if (!state.val) {
-                    adapter.setState(id, false, true);
-                    adapter.log.warn('use pause or stop state if you want to pause or stop cleaning ' + robotName);
-                    return;
-                }
-                updateRobot(allRobots[robotName], function (error) {
-                    if (error) {
-                        return;
-                    }
-                    if (allRobots[robotName].canResume !== true) {
-                        adapter.log.warn('cannot resume cleaning ' + robotName);
+                    break;
+                case 'resume':
+                    if (!state.val) {
                         adapter.setState(id, false, true);
+                        adapter.log.warn('use pause or stop state if you want to pause or stop cleaning ' + robotName);
                         return;
                     }
-                    //resume cleaning
-                    allRobots[robotName].resumeCleaning(function (error, result) {
-                        if (error || result !== 'ok') {
-                            adapter.log.warn('cannot resume cleaning (2) ' + robotName);
+                    updateRobot(allRobots[robotName], function (error) {
+                        if (error) {
+                            return;
+                        }
+                        if (allRobots[robotName].canResume !== true) {
+                            adapter.log.warn('cannot resume cleaning ' + robotName);
                             adapter.setState(id, false, true);
                             return;
                         }
-                        adapter.setState(id, true, true);
-                        setTimeout(function () {
-                            updateRobot(allRobots[robotName]);
-                        }, 1000);
+                        //resume cleaning
+                        allRobots[robotName].resumeCleaning(function (error, result) {
+                            if (error || result !== 'ok') {
+                                adapter.log.warn('cannot resume cleaning (2) ' + robotName);
+                                adapter.setState(id, false, true);
+                                return;
+                            }
+                            adapter.setState(id, true, true);
+                            setTimeout(function () {
+                                updateRobot(allRobots[robotName]);
+                            }, 1000);
+                        });
                     });
-                });
-                break;
-            case 'stop':
-                if (!state.val) {
-                    adapter.setState(id, false, true);
-                    adapter.log.warn('use start or resume state if you want to start or resume cleaning ' + robotName);
-                    return;
-                }
-                updateRobot(allRobots[robotName], function (error) {
-                    if (error) {
-                        return;
-                    }
-                    if (allRobots[robotName].canStop !== true) {
-                        adapter.log.warn('cannot stop cleaning ' + robotName);
+                    break;
+                case 'stop':
+                    if (!state.val) {
                         adapter.setState(id, false, true);
+                        adapter.log.warn('use start or resume state if you want to start or resume cleaning ' + robotName);
                         return;
                     }
-                    //stop cleaning
-                    allRobots[robotName].stopCleaning(function (error, result) {
-                        if (error || result !== 'ok') {
-                            adapter.log.warn('cannot stop cleaning (2) ' + robotName);
+                    updateRobot(allRobots[robotName], function (error) {
+                        if (error) {
+                            return;
+                        }
+                        if (allRobots[robotName].canStop !== true) {
+                            adapter.log.warn('cannot stop cleaning ' + robotName);
                             adapter.setState(id, false, true);
                             return;
                         }
-                        adapter.setState(id, true, true);
-                        setTimeout(function () {
-                            updateRobot(allRobots[robotName]);
-                        }, 1000);
+                        //stop cleaning
+                        allRobots[robotName].stopCleaning(function (error, result) {
+                            if (error || result !== 'ok') {
+                                adapter.log.warn('cannot stop cleaning (2) ' + robotName);
+                                adapter.setState(id, false, true);
+                                return;
+                            }
+                            adapter.setState(id, true, true);
+                            setTimeout(function () {
+                                updateRobot(allRobots[robotName]);
+                            }, 1000);
+                        });
                     });
-                });
-                break;
-            case 'goToBase':
-                if (!state.val) {
-                    adapter.setState(id, false, true);
-                    adapter.log.warn('use start state if you want to start cleaning ' + robotName);
-                    return;
-                }
-                updateRobot(allRobots[robotName], function (error) {
-                    if (error) {
-                        return;
-                    }
-                    if (allRobots[robotName].canGoToBase !== true) {
-                        adapter.log.warn('cannot go to base ' + robotName);
+                    break;
+                case 'goToBase':
+                    if (!state.val) {
                         adapter.setState(id, false, true);
+                        adapter.log.warn('use start state if you want to start cleaning ' + robotName);
                         return;
                     }
-                    //go to base
-                    allRobots[robotName].sendToBase(function (error, result) {
-                        if (error || result !== 'ok') {
-                            adapter.log.warn('cannot go to base (2) ' + robotName);
+                    updateRobot(allRobots[robotName], function (error) {
+                        if (error) {
+                            return;
+                        }
+                        if (allRobots[robotName].canGoToBase !== true) {
+                            adapter.log.warn('cannot go to base ' + robotName);
                             adapter.setState(id, false, true);
                             return;
                         }
-                        adapter.setState(id, true, true);
-                        setTimeout(function () {
+                        //go to base
+                        allRobots[robotName].sendToBase(function (error, result) {
+                            if (error || result !== 'ok') {
+                                adapter.log.warn('cannot go to base (2) ' + robotName);
+                                adapter.setState(id, false, true);
+                                return;
+                            }
+                            adapter.setState(id, true, true);
+                            setTimeout(function () {
+                                updateRobot(allRobots[robotName]);
+                            }, 1000);
+                        });
+                    });
+                    break;
+                case 'eco':
+                    allRobots[robotName].eco = state.val;
+                    adapter.setState(id, state.val, true);
+                    break;
+                case 'spotWidth':
+                    allRobots[robotName].spotWidth = state.val;
+                    adapter.setState(id, state.val, true);
+                    break;
+                case 'spotHeight':
+                    allRobots[robotName].spotHeight = state.val;
+                    adapter.setState(id, state.val, true);
+                    break;
+                case 'spotRepeat':
+                    allRobots[robotName].spotRepeat = state.val;
+                    adapter.setState(id, state.val, true);
+                    break;
+                case 'noGoLines':
+                    allRobots[robotName].noGoLines = state.val;
+                    adapter.setState(id, state.val, true);
+                    break;
+                default:
+                    adapter.log.warn('unknown command: ' + command);
+                    return;
+            }
+        }
+        else if (channel === 'schedule') {
+            adapter.log.debug('objectChange: ' + id + ' ' + JSON.stringify(state) );
+            adapter.log.debug('match: ' + JSON.stringify(command) + ' is '  + JSON.stringify(command.split('-')));
+            let match;
+            // now is only working with minimal-1
+            if (((match = String(command).match(reStartTime)) !== null) && (match.length === 2))  {
+                let day = parseInt(match[0]);
+                if ((! Number.isInteger(day)) || ( day < 0 ) || ( day > 6)) {
+                    adapter.log.warn('Unknown day of week for startTime: ' + JSON.stringify(command));
+                    return;
+                }
+                if (! (reTimeValidator.test(state.val) || (state.val === '')) )  {
+                    adapter.log.warn('Not valid format of time for ' + JSON.stringify(command) + ' = ' + JSON.stringify(state.val));
+                    updateRobot(allRobots[robotName]);
+                    return;
+                }
+                adapter.log.debug('Start time has valid format ' + JSON.stringify(state.val) + ' and right day ' + JSON.stringify(day) + ' for ' + JSON.stringify(command));
+//                let schedule = {'type': 1, 'events': [{ 'day': day, 'startTime': state.val}]};
+                allRobots[robotName].getSchedule(true, function (error, schedule) {
+                    if (error || !schedule) {
+                        adapter.log.warn('could not update robot ' + robot.name);
+                        adapter.setState(robot.name + '.status.reachable', true, false);
+                        return;
+                    }
+                    adapter.log.debug('get schedule: ' + JSON.stringify(schedule));
+                    if (schedule.hasOwnProperty('enabled')) delete schedule['enabled'];
+                    adapter.log.debug('update schedule: ' + JSON.stringify(schedule));
+                    if (schedule.hasOwnProperty('events')) {
+                        let isDay = schedule.events.findIndex(function (element) {
+                            return (element.hasOwnProperty('day') && (parseInt(element.day) === day));
+                        });
+                        if (isDay >= 0) {
+                            if (state.val === '') {
+                                delete schedule.events[isDay];
+                            }
+                            else {
+                                schedule.events[isDay].startTime = state.val;
+                            }
+                        }
+                        else if (state.val !== '') {
+                            schedule.events.push({ 'day': day, 'startTime': state.val})
+                        }
+                        else {
+                            adapter.log.warn('Can not clear already empty schedule' + JSON.stringify(command) + ' = ' + JSON.stringify(state.val));
                             updateRobot(allRobots[robotName]);
-                        }, 1000);
+                            return;
+                        }
+                        schedule.events = schedule.events.filter(n => n);
+                    }
+                    adapter.log.debug('schedule: ' + JSON.stringify(schedule));
+                    allRobots[robotName].setSchedule(schedule, function (error, result) {
+                        adapter.log.debug('error: ' + JSON.stringify(error) + ' ' + JSON.stringify(result));
+                        if (error ) {
+                            adapter.log.warn('cannot set schedule ' + robotName + '! Error: ' + JSON.stringify(error) + ', schedule = ' + JSON.stringify(schedule));
+                            updateRobot(allRobots[robotName]);
+                            return;
+                        }
+                        adapter.setState(id, state.val, true);
                     });
                 });
-                break;
-            case 'eco':
-                allRobots[robotName].eco = state.val;
-                adapter.setState(id, state.val, true);
-                break;
-            case 'spotWidth':
-                allRobots[robotName].spotWidth = state.val;
-                adapter.setState(id, state.val, true);
-                break;
-            case 'spotHeight':
-                allRobots[robotName].spotHeight = state.val;
-                adapter.setState(id, state.val, true);
-                break;
-            case 'spotRepeat':
-                allRobots[robotName].spotRepeat = state.val;
-                adapter.setState(id, state.val, true);
-                break;
-            case 'noGoLines':
-                allRobots[robotName].noGoLines = state.val;
-                adapter.setState(id, state.val, true);
-                break;
-            default:
-                adapter.log.warn('unknown command: ' + command);
-                return;
+            }
         }
     }
 });
@@ -419,8 +486,11 @@ function updateRobot(robot, callback) {
             return;
         }
         if (state.hasOwnProperty('events')) {
+            // is working only with minimal-1 now
+            let weekDays = [];
             state.events.forEach(function(weekDay) {
                 if (weekDay.hasOwnProperty('day')) {
+                    weekDays.push(parseInt(weekDay.day));
                     if  (weekDay.hasOwnProperty('startTime')) {
                         adapter.setState(robot.name + '.schedule.' + weekDay.day + '-startTime', weekDay.startTime, true);
                     }
@@ -432,6 +502,11 @@ function updateRobot(robot, callback) {
                     }
                 }
             });
+            for (var i = 0; i < 7; i++) {
+                if (weekDays.indexOf(i) < 0) {
+                    adapter.setState(robot.name + '.schedule.' + i + '-startTime', '', true);
+                }
+            }
         }
     });
 }
@@ -539,7 +614,7 @@ function prepareRobotsStructure(robots, devices, callback) {
                             common: {
                                 type: 'string',
                                 read: true,
-                                write: false,
+                                write: true,
                                 def: '',
                                 role: 'text'
                             }
