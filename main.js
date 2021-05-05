@@ -298,293 +298,34 @@ function main() {
                 restart(300000);
                 return;
             }
-            var devices = {};
-            for (var i = 0; i < robots.length; i++) {
-                if (robots[i].name) {
-                    devices[robots[i].name] = {
-                        'status': {
-                            common: 'meta',
-                            states: {
-                                'reachable': {
-                                    common: {
-                                        type: 'boolean',
-                                        read: true,
-                                        write: false,
-                                        def: false,
-                                        role: 'indicator.reachable'
-                                    }
-                                },
-                                'lastResult': {
-                                    common: {
-                                        type: 'string',
-                                        read: true,
-                                        write: false,
-                                        role: 'text'
-                                    }
-                                },
-                                'error': {
-                                    common: {
-                                        type: 'string',
-                                        read: true,
-                                        write: false,
-                                        role: 'text'
-                                    }
-                                },
-                                'state': {
-                                    common: {
-                                        type: 'number',
-                                        read: true,
-                                        write: false,
-                                        role: 'value'
-                                    }
-                                },
-                                'action': {
-                                    common: {
-                                        type: 'number',
-                                        read: true,
-                                        write: false,
-                                        role: 'value'
-                                    }
-                                },
-                                'lastCleaning': {
-                                    common: {
-                                        type: 'string',
-                                        read: true,
-                                        write: false,
-                                        role: 'text'
-                                    }
-                                },
-                                'isCharging': {
-                                    common: {
-                                        type: 'boolean',
-                                        read: true,
-                                        write: false,
-                                        role: 'indicator'
-                                    }
-                                },
-                                'isScheduleEnabled': {
-                                    common: {
-                                        type: 'boolean',
-                                        read: true,
-                                        write: false,
-                                        role: 'indicator'
-                                    }
-                                },
-                                'isDocked': {
-                                    common: {
-                                        type: 'boolean',
-                                        read: true,
-                                        write: false,
-                                        role: 'indicator'
-                                    }
-                                },
-                                'dockHasBeenSeen': {
-                                    common: {
-                                        type: 'boolean',
-                                        read: true,
-                                        write: false,
-                                        role: 'indicator'
-                                    }
-                                },
-                                'charge': {
-                                    common: {
-                                        type: 'number',
-                                        read: true,
-                                        write: false,
-                                        role: 'value.battery'
-                                    }
-                                },
-                                'canStart': {
-                                    common: {
-                                        type: 'boolean',
-                                        read: true,
-                                        write: false,
-                                        role: 'indicator'
-                                    }
-                                },
-                                'canStop': {
-                                    common: {
-                                        type: 'boolean',
-                                        read: true,
-                                        write: false,
-                                        role: 'indicator'
-                                    }
-                                },
-                                'canPause': {
-                                    common: {
-                                        type: 'boolean',
-                                        read: true,
-                                        write: false,
-                                        role: 'indicator'
-                                    }
-                                },
-                                'canResume': {
-                                    common: {
-                                        type: 'boolean',
-                                        read: true,
-                                        write: false,
-                                        role: 'indicator'
-                                    }
-                                },
-                                'canGoToBase': {
-                                    common: {
-                                        type: 'boolean',
-                                        read: true,
-                                        write: false,
-                                        role: 'indicator'
-                                    }
-                                },
-                                'modelName': {
-                                    common: {
-                                        type: 'string',
-                                        read: true,
-                                        write: false,
-                                        role: 'text'
-                                    }
-                                },
-                                'firmware': {
-                                    common: {
-                                        type: 'string',
-                                        read: true,
-                                        write: false,
-                                        role: 'text'
-                                    }
-                                }
-                            }
-                        },
-                        'commands': {
-                            common: 'button',
-                            states: {
-                                'schedule': {
-                                    common: {
-                                        type: 'boolean',
-                                        read: true,
-                                        write: true,
-                                        def: false,
-                                        role: 'switch'
-                                    }
-                                },
-                                'clean': {
-                                    common: {
-                                        type: 'boolean',
-                                        read: true,
-                                        write: true,
-                                        def: false,
-                                        role: 'switch'
-                                    }
-                                },
-                                'eco': {
-                                    common: {
-                                        type: 'boolean',
-                                        read: true,
-                                        write: true,
-                                        def: false,
-                                        role: 'switch'
-                                    }
-                                },
-                                'cleanSpot': {
-                                    common: {
-                                        type: 'boolean',
-                                        read: true,
-                                        write: true,
-                                        def: false,
-                                        role: 'switch'
-                                    }
-                                },
-                                'spotWidth': {
-                                    common: {
-                                        type: 'number',
-                                        read: true,
-                                        write: true,
-                                        def: 100,
-                                        min: 100,
-                                        unit: 'cm',
-                                        role: 'level.width'
-                                    }
-                                },
-                                'spotHeight': {
-                                    common: {
-                                        type: 'number',
-                                        read: true,
-                                        write: true,
-                                        def: 100,
-                                        min: 100,
-                                        unit: 'cm',
-                                        role: 'level.height'
-                                    }
-                                },
-                                'spotRepeat': {
-                                    common: {
-                                        type: 'boolean',
-                                        read: true,
-                                        write: true,
-                                        def: false,
-                                        role: 'switch'
-                                    }
-                                },
-                                'pause': {
-                                    common: {
-                                        type: 'boolean',
-                                        read: true,
-                                        write: true,
-                                        def: false,
-                                        role: 'switch'
-                                    }
-                                },
-                                'resume': {
-                                    common: {
-                                        type: 'boolean',
-                                        read: true,
-                                        write: true,
-                                        def: false,
-                                        role: 'switch'
-                                    }
-                                },
-                                'stop': {
-                                    common: {
-                                        type: 'boolean',
-                                        read: true,
-                                        write: true,
-                                        def: false,
-                                        role: 'switch'
-                                    }
-                                },
-                                'goToBase': {
-                                    common: {
-                                        type: 'boolean',
-                                        read: true,
-                                        write: true,
-                                        def: false,
-                                        role: 'switch'
-                                    }
-                                }
-                            }
-                        }
-                    };
-                    allRobots[robots[i].name] = robots[i];
-                }
-            }
-            createRobotsObjects(devices, null, null, function (error, result) {
+            prepareRobotsStructure(robots, {}, function(error, devices) {
                 if (error) {
-                    adapter.log.warn('can not create appropriate objects! Err = ' + JSON.stringify(error));
+                    adapter.log.warn('can not prepare device! Err = ' +JSON.stringify(error));
                     restart(300000);
                     return;
                 }
-                adapter.log.info('devices found: ' + robots.length);
-                adapter.getDevices(function (err, devices) {
-                    if (Array.isArray(devices)) {
-                        for (var i = 0; i < devices.length; i++) {
-                            allRobotNames.push(devices[i].common.name);
-                        }
+                adapter.log.info('devices found: ' + Object.keys(devices).length);
+                createRobotsObjects(devices, null, null, function (error, result) {
+                    if (error) {
+                        adapter.log.warn('can not create appropriate objects! Err = ' + JSON.stringify(error));
+                        restart(300000);
+                        return;
                     }
-                    //subscribe all states in namespace
-                    init = true;
-                    adapter.subscribeStates('*');
-                    pollInterval = adapter.config.pollInterval || 120;
-                    pollInterval *= 1000;
-                    if (pollInterval < 60000) pollInterval = 60000;
-                    polltimer = setInterval(update, pollInterval);
-                    update();
+                    adapter.getDevices(function (err, devices) {
+                        if (Array.isArray(devices)) {
+                            for (var i = 0; i < devices.length; i++) {
+                                allRobotNames.push(devices[i].common.name);
+                            }
+                        }
+                        //subscribe all states in namespace
+                        init = true;
+                        adapter.subscribeStates('*');
+                        pollInterval = adapter.config.pollInterval || 120;
+                        pollInterval *= 1000;
+                        if (pollInterval < 60000) pollInterval = 60000;
+                        polltimer = setInterval(update, pollInterval);
+                        update();
+                    });
                 });
             });
         });
@@ -690,6 +431,105 @@ function updateRobot(robot, callback) {
         }
     });
 }
+
+
+const statusROStringText = { common: { type: 'string', read: true, write: false, role: 'text' } };
+const statusRONumberValue = { common: { type: 'number', read: true, write: false, role: 'value' } };
+const statusROBooleanIndicator = { common: { type: 'boolean', read: true, write: false, role: 'indicator' } }
+const commandRWBooleanSwitch = { common: { type: 'boolean', read: true, write: true, def: false, role: 'switch' } };
+
+function prepareRobotsStructure(robots, devices, callback) {
+    if (!robots.length) return (typeof callback === 'function') ? callback(null, devices) : null;
+    var robot = robots.shift();
+    if (robot.name) {
+        robot.getState(function (error, state) {
+            if (error || !state) {
+                adapter.log.warn('could not update robot ' + robot.name);
+            }
+            else {
+                devices[robot.name] = {
+                    'status': {
+                        common: 'meta',
+                        states: {
+                            'reachable': {
+                                common: {
+                                    type: 'boolean',
+                                    read: true,
+                                    write: false,
+                                    def: false,
+                                    role: 'indicator.reachable'
+                                }
+                            },
+                            'lastResult': statusROStringText ,
+                            'error': statusROStringText,
+                            'state': statusRONumberValue,
+                            'action': statusRONumberValue,
+                            'lastCleaning': statusROStringText,
+                            'isCharging': statusROBooleanIndicator ,
+                            'isScheduleEnabled': statusROBooleanIndicator,
+                            'isDocked': statusROBooleanIndicator,
+                            'dockHasBeenSeen': statusROBooleanIndicator,
+                            'charge': {
+                                common: {
+                                    type: 'number',
+                                    read: true,
+                                    write: false,
+                                    role: 'value.battery'
+                                }
+                            },
+                            'canStart': statusROBooleanIndicator,
+                            'canStop': statusROBooleanIndicator,
+                            'canPause': statusROBooleanIndicator,
+                            'canResume': statusROBooleanIndicator,
+                            'canGoToBase': statusROBooleanIndicator,
+                            'modelName': statusROStringText,
+                            'firmware': statusROStringText
+                        }
+                    },
+                    'commands': {
+                        common: 'button',
+                        states: {
+                            'schedule': commandRWBooleanSwitch,
+                            'clean': commandRWBooleanSwitch,
+                            'eco': commandRWBooleanSwitch,
+                            'cleanSpot': commandRWBooleanSwitch,
+                            'spotWidth': {
+                                common: {
+                                    type: 'number',
+                                    read: true,
+                                    write: true,
+                                    def: 100,
+                                    min: 100,
+                                    unit: 'cm',
+                                    role: 'level.width'
+                                }
+                            },
+                            'spotHeight': {
+                                common: {
+                                    type: 'number',
+                                    read: true,
+                                    write: true,
+                                    def: 100,
+                                    min: 100,
+                                    unit: 'cm',
+                                    role: 'level.height'
+                                }
+                            },
+                            'spotRepeat': commandRWBooleanSwitch,
+                            'pause': commandRWBooleanSwitch,
+                            'resume': commandRWBooleanSwitch,
+                            'stop': commandRWBooleanSwitch,
+                            'goToBase': commandRWBooleanSwitch,
+                        }
+                    }
+                };
+                allRobots[robot.name] = robot;
+            }
+            prepareRobotsStructure(robots, devices, callback)
+        });
+    }
+}
+
 
 function createRobotsObjects(devices, channels, states, callback) {
     if (states !== null) {
