@@ -274,68 +274,126 @@ adapter.on('stateChange', function (id, state) {
         }
         else if (channel === 'schedule') {
             adapter.log.debug('objectChange: ' + id + ' ' + JSON.stringify(state) );
-            adapter.log.debug('match: ' + JSON.stringify(command) + ' is '  + JSON.stringify(command.split('-')));
             let match;
-            // now is only working with minimal-1
+            // now is only startTime editable
+            //startinc checks of startTime valid input - begin with state name
             if (((match = String(command).match(reStartTime)) !== null) && (match.length === 2))  {
                 let day = parseInt(match[0]);
+                //state name is valid, will check a day of week
                 if ((! Number.isInteger(day)) || ( day < 0 ) || ( day > 6)) {
                     adapter.log.warn('Unknown day of week for startTime: ' + JSON.stringify(command));
                     return;
                 }
+                //checking the state value to be comply with HH:MM
                 if (! (reTimeValidator.test(state.val) || (state.val === '')) )  {
                     adapter.log.warn('Not valid format of time for ' + JSON.stringify(command) + ' = ' + JSON.stringify(state.val));
+                    //update to value from robot
                     updateRobot(allRobots[robotName]);
                     return;
                 }
+                //trying to apply new value
                 adapter.log.debug('Start time has valid format ' + JSON.stringify(state.val) + ' and right day ' + JSON.stringify(day) + ' for ' + JSON.stringify(command));
-//                let schedule = {'type': 1, 'events': [{ 'day': day, 'startTime': state.val}]};
                 allRobots[robotName].getSchedule(true, function (error, schedule) {
                     if (error || !schedule) {
                         adapter.log.warn('could not update robot ' + robot.name);
                         adapter.setState(robot.name + '.status.reachable', true, false);
                         return;
                     }
+                    //we have to send to the robot the whole existing schedule with our changes
+                    //that's why we need to get current one
                     adapter.log.debug('get schedule: ' + JSON.stringify(schedule));
+                    //status of schedule is returned from, but has not be passed to
                     if (schedule.hasOwnProperty('enabled')) delete schedule['enabled'];
                     adapter.log.debug('update schedule: ' + JSON.stringify(schedule));
+                    // to be careful, if we have right answer
                     if (schedule.hasOwnProperty('events')) {
+                        //trying to find a current day in existing schedule
                         let isDay = schedule.events.findIndex(function (element) {
                             return (element.hasOwnProperty('day') && (parseInt(element.day) === day));
                         });
+                        //this day exists in schedule
                         if (isDay >= 0) {
+                            // remove day from schedule
                             if (state.val === '') {
                                 delete schedule.events[isDay];
                             }
+                            //replace with new time
                             else {
                                 schedule.events[isDay].startTime = state.val;
                             }
+                            setSchedule(robotName, id, state, schedule);
                         }
+                        //day is not exists in schedule
                         else if (state.val !== '') {
-                            schedule.events.push({ 'day': day, 'startTime': state.val})
+                            let newDay = { 'day': day, 'startTime': state.val};
+                            // lets add required properties for non minimal-1 schedule
+                            if (allRobots[robotName].availableServices.schedule !== 'minimal-1') {
+                                adapter.getState(robotName + '.' + channel + '.' + day + '-mode', function (err, mode) {
+                                    if (error ) {
+                                        adapter.log.warn('cannot get mode for day ' + day + 'for ' + robotName + '! Error: ' + JSON.stringify(error) + ', mode = ' + JSON.stringify(mode));
+                                        updateRobot(allRobots[robotName]);
+                                        return;
+                                    }
+                                });
+                                // we will not check format of the mode there, as it has to be checked before, when it changed
+                                adapter.log.debug('mode: ' + JSON.stringify(mode) + ' for day ' + JSON.stringify(day));
+                                newDay['mode'] = mode.val;
+                                if (allRobots[robotName].availableServices.schedule === 'basic-2') {
+                                    adapter.getState(robotName + '.' + channel + '.' + day + '-boundaryId', function (err, mode) {
+                                        if (error ) {
+                                            adapter.log.warn('cannot get boundaryId for day ' + day + 'for ' + robotName + '! Error: ' + JSON.stringify(error) + ', boundary = ' + JSON.stringify(boundary));
+                                            updateRobot(allRobots[robotName]);
+                                            return;
+                                        }
+                                        // we will not check format of the boundaryId mode there, as it has to be checked before, when it changed
+                                        adapter.log.debug('boundary: ' + JSON.stringify(boundary) + ' for day ' + JSON.stringify(day));
+                                        newDay['boundaryId'] = boundary.val;
+                                        // add new day
+                                        schedule.events.push(newDay);
+                                        // process new schedule
+                                        setSchedule(robotName, id, state, schedule);
+                                    });
+                                }
+                                else {
+                                    // add new day
+                                    schedule.events.push(newDay);
+                                    // process new schedule
+                                    setSchedule(robotName, id, state, schedule);
+                                }
+                            }
+                            else {
+                                // add new day
+                                schedule.events.push(newDay);
+                                // process new schedule
+                                setSchedule(robotName, id, state, schedule);
+                            }
                         }
                         else {
                             adapter.log.warn('Can not clear already empty schedule' + JSON.stringify(command) + ' = ' + JSON.stringify(state.val));
+                            // we can't delete already empty day from schedule
                             updateRobot(allRobots[robotName]);
                             return;
                         }
-                        schedule.events = schedule.events.filter(n => n);
                     }
-                    adapter.log.debug('schedule: ' + JSON.stringify(schedule));
-                    allRobots[robotName].setSchedule(schedule, function (error, result) {
-                        adapter.log.debug('error: ' + JSON.stringify(error) + ' ' + JSON.stringify(result));
-                        if (error ) {
-                            adapter.log.warn('cannot set schedule ' + robotName + '! Error: ' + JSON.stringify(error) + ', schedule = ' + JSON.stringify(schedule));
-                            updateRobot(allRobots[robotName]);
-                            return;
-                        }
-                        adapter.setState(id, state.val, true);
-                    });
                 });
             }
         }
     }
 });
+
+function setSchedule(robotName, id, state, schedule) {
+    schedule.events = schedule.events.filter(n => n).sort(function compare(a,b) {return (parseInt(a.day) - parseInt(b.day))});
+    adapter.log.debug('set schedule: ' + JSON.stringify(schedule));
+    allRobots[robotName].setSchedule(schedule, function (error, result) {
+    adapter.log.debug('error: ' + JSON.stringify(error) + ' ' + JSON.stringify(result));
+        if (error ) {
+            adapter.log.warn('cannot set schedule ' + robotName + '! Error: ' + JSON.stringify(error) + ', schedule = ' + JSON.stringify(schedule));
+            updateRobot(allRobots[robotName]);
+            return;
+        }
+        adapter.setState(id, state.val, true);
+    });
+}
 
 // is called when databases are connected and adapter received configuration.
 // start here!
@@ -425,7 +483,7 @@ function updateRobot(robot, callback) {
             }
             return;
         }
-        //adapter.log.debug('robot: ' + JSON.stringify(robot) + "\n" + ' state:'+ JSON.stringify(state));
+        adapter.log.debug('robot: ' + JSON.stringify(robot) + "\n" + ' state:'+ JSON.stringify(state));
         adapter.setState(robot.name + '.status.reachable', true, true);
         adapter.setState(robot.name + '.status.lastResult', state.result, true);
         adapter.setState(robot.name + '.status.error', state.error, true);
@@ -485,6 +543,7 @@ function updateRobot(robot, callback) {
             }
             return;
         }
+        adapter.log.debug('get schedule ' + JSON.stringify(state));
         if (state.hasOwnProperty('events')) {
             // is working only with minimal-1 now
             let weekDays = [];
