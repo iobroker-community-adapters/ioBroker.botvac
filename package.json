@@ -1,6 +1,6 @@
 {
   "name": "iobroker.botvac",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "ioBroker botvac Adapter",
   "author": {
     "name": "Pmant",
@@ -14,6 +14,7 @@
   ],
   "homepage": "https://github.com/Pmant/ioBroker.botvac",
   "license": "MIT",
+  "main": "main.js",
   "keywords": [
     "ioBroker",
     "botvac"
@@ -23,7 +24,7 @@
     "url": "https://github.com/Pmant/ioBroker.botvac"
   },
   "dependencies": {
-    "node-botvac": "^0.1.0",
+    "node-botvac": "PeterVoronov/node-botvac#0.4.2-schedule-write",
     "@iobroker/adapter-core": "^1.0.3"
   },
   "devDependencies": {
