@@ -15,12 +15,12 @@
     "mode": "daemon",
     "icon": "botvac.png",
     "enabled": true,
-    "extIcon": "https://raw.githubusercontent.com/Pmant/ioBroker.botvac/master/admin/botvac.png",
+    "extIcon": "https://raw.githubusercontent.com/iobroker-community-adapters/ioBroker.botvac/master/admin/botvac.png",
     "keywords": [
       "botvac",
       "neato"
     ],
-    "readme": "https://github.com/Pmant/ioBroker.botvac/blob/master/README.md",
+    "readme": "https://github.com/iobroker-community-adapters/ioBroker.botvac/blob/master/README.md",
     "loglevel": "info",
     "type": "household",
     "restartAdapters": [
