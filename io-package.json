@@ -2,7 +2,22 @@
   "common": {
     "name": "botvac",
     "version": "1.0.4",
+    "news": {
+    },
     "title": "Neato Botvac",
+    "titleLang": {
+        "en": "Neato Botvac\n\n",
+        "de": "Neato Botvac\n\n",
+        "ru": "Неато Botvac\n\n",
+        "pt": "Neato Botvac\n\n",
+        "nl": "Neato Botvac\n\n",
+        "fr": "Neato Botvac\n\n",
+        "it": "Neato Botvac\n\n",
+        "es": "Neato Botvac\n\n",
+        "pl": "Neato Botvac\n\n",
+        "uk": "Неато Ботва\n\n",
+        "zh-cn": "Neato Botvac\n\n"
+    },
     "desc": {
       "en": "ioBroker neato botvac Adapter",
       "de": "ioBroker Neato Botvac Adapter",
@@ -20,6 +35,7 @@
       "botvac",
       "neato"
     ],
+    "license": "MIT",
     "readme": "https://github.com/iobroker-community-adapters/ioBroker.botvac/blob/master/README.md",
     "loglevel": "info",
     "type": "household",
