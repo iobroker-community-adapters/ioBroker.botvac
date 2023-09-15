@@ -5,7 +5,7 @@
     "news": {
       "2.0.0-alpha.0": {
         "en": "The adapter has been moved to iobroker-community-adapters\nThis release is a consolidated version containing current github content.\nDependencies have been updated.",
-        "de": "Der Adapter wurde zu iobroker-community-Adaptern bewegt\nDiese Version ist eine konsolidierte Version mit aktuellen Github-Gehalt.\nAbhängigkeiten wurden aktualisiert.",
+        "de": "Der Adapter wurde zu iobroker-community-Adaptern verschoben.\nDiese Version ist eine konsolidierte Version mit aktuellem Github Inhalt.\nAbhängigkeiten wurden aktualisiert.",
         "ru": "Адаптер переехал в iobroker-community-adapters\nДанный релиз является консолидированной версией, содержащей текущее содержание github.\nОбновлены зависимости.",
         "pt": "O adaptador foi movido para iobroker-community-adapters\nEsta versão é uma versão consolidada contendo conteúdo github atual.\nAs dependências foram atualizadas.",
         "nl": "De adapter is verplaatst naar iobroker-community-papters\nDeze vrijlating is een troostige versie met de huidige github tevredenheid.\nAfhankelijkheid is geüpdateerd.",
