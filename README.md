@@ -33,7 +33,7 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 2.0.0-alpha.0 (2023-09-15)
 - (mcm1957) The adapter has been moved to iobroker-community-adapters
 - (mcm1957) This release is a consolidated version containing current github content.
 - (mcm1957) Dependencies have been updated.
@@ -51,7 +51,7 @@
 
 ### 0.2.0
 - (Pmant) update status after command
-- (Pmant) update commands 
+- (Pmant) update commands
 
 ### 0.1.0
 - (Pmant) inital commit

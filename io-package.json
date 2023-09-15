@@ -1,22 +1,35 @@
 {
   "common": {
     "name": "botvac",
-    "version": "1.0.4",
+    "version": "2.0.0-alpha.0",
     "news": {
+      "2.0.0-alpha.0": {
+        "en": "The adapter has been moved to iobroker-community-adapters\nThis release is a consolidated version containing current github content.\nDependencies have been updated.",
+        "de": "Der Adapter wurde zu iobroker-community-Adaptern bewegt\nDiese Version ist eine konsolidierte Version mit aktuellen Github-Gehalt.\nAbhängigkeiten wurden aktualisiert.",
+        "ru": "Адаптер переехал в iobroker-community-adapters\nДанный релиз является консолидированной версией, содержащей текущее содержание github.\nОбновлены зависимости.",
+        "pt": "O adaptador foi movido para iobroker-community-adapters\nEsta versão é uma versão consolidada contendo conteúdo github atual.\nAs dependências foram atualizadas.",
+        "nl": "De adapter is verplaatst naar iobroker-community-papters\nDeze vrijlating is een troostige versie met de huidige github tevredenheid.\nAfhankelijkheid is geüpdateerd.",
+        "fr": "L'adaptateur a été déplacé aux adaptateurs iobroker-community\nCette version est une version consolidée contenant la teneur en github actuelle.\nLes dépendances ont été mises à jour.",
+        "it": "L'adattatore è stato spostato a iobroker-community-adattatori\nQuesta versione è una versione consolidata contenente il contenuto github corrente.\nLe dipendenze sono state aggiornate.",
+        "es": "El adaptador se ha movido a iobroker-community-adapters\nEsta versión es una versión consolidada que contiene el contenido actual de github.\nSe han actualizado las dependencias.",
+        "pl": "Adaptator został przeniesiony do iobroker-community-adapter\nJest to skonsolidowana wersja zawierająca aktualne treści github.\nW zależności zostały zaktualizowane.",
+        "uk": "Перехідник був перенесений на iobroker-community-adapters\nЦей реліз є консолідованою версією, що містить поточний вміст github.\nОновлено залежність.",
+        "zh-cn": "适应者被移到了加勒比妓院。\n这一释放是载有目前包商内容的合并版本。.\n情况已经更新。."
+      }
     },
     "title": "Neato Botvac",
     "titleLang": {
-        "en": "Neato Botvac\n\n",
-        "de": "Neato Botvac\n\n",
-        "ru": "Неато Botvac\n\n",
-        "pt": "Neato Botvac\n\n",
-        "nl": "Neato Botvac\n\n",
-        "fr": "Neato Botvac\n\n",
-        "it": "Neato Botvac\n\n",
-        "es": "Neato Botvac\n\n",
-        "pl": "Neato Botvac\n\n",
-        "uk": "Неато Ботва\n\n",
-        "zh-cn": "Neato Botvac\n\n"
+      "en": "Neato Botvac\n\n",
+      "de": "Neato Botvac\n\n",
+      "ru": "Неато Botvac\n\n",
+      "pt": "Neato Botvac\n\n",
+      "nl": "Neato Botvac\n\n",
+      "fr": "Neato Botvac\n\n",
+      "it": "Neato Botvac\n\n",
+      "es": "Neato Botvac\n\n",
+      "pl": "Neato Botvac\n\n",
+      "uk": "Неато Ботва\n\n",
+      "zh-cn": "Neato Botvac\n\n"
     },
     "desc": {
       "en": "ioBroker neato botvac Adapter",
@@ -48,6 +61,5 @@
     "password": null,
     "pollInterval": 60
   },
-  "objects": [
-  ]
+  "objects": []
 }
