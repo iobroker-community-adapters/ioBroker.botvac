@@ -512,7 +512,7 @@ function updateRobot(robot, callback) {
             adapter.setState(robot.name + '.commands.stop', false, true);
         }
         adapter.setState(robot.name + '.status.canPause', robot.canPause, true);
-        if (robot.canPaus) {
+        if (robot.canPause) {
             adapter.setState(robot.name + '.commands.pause', false, true);
         }
         adapter.setState(robot.name + '.status.canResume', robot.canResume, true);
