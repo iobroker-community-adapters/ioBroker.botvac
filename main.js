@@ -511,7 +511,7 @@ function updateRobot(robot, callback) {
         if (robot.canStop) {
             adapter.setState(robot.name + '.commands.stop', false, true);
         }
-        adapter.setState(robot.name + '.status.canPause', robot.canPaus, true);
+        adapter.setState(robot.name + '.status.canPause', robot.canPause, true);
         if (robot.canPaus) {
             adapter.setState(robot.name + '.commands.pause', false, true);
         }
