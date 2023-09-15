@@ -33,7 +33,7 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-**WORK IN PROGRESS**
+### **WORK IN PROGRESS**
 - (mcm1957) The adapter has been moved to iobroker-community-adapters
 - (mcm1957) This release is a consolidated version containing current github content.
 - (mcm1957) Dependencies have been updated.
