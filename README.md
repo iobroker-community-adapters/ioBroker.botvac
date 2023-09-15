@@ -33,9 +33,11 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### 2.0.0-alpha.0 (2023-09-15)
-- (mcm1957) The adapter has been moved to iobroker-community-adapters
+### **WORK IN PROGRESS**
+- (mcm1957) Adapter requires node 16 or newer now.
+- (mcm1957) The adapter has been moved to iobroker-community-adapters.
 - (mcm1957) This release is a consolidated version containing current github content.
+- (mcm1957) Adapter should be compatible to js-controller 5 now.
 - (mcm1957) Dependencies have been updated.
 
 ### 0.5.0
