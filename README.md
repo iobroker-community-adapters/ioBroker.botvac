@@ -33,7 +33,7 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 2.0.0 (2023-09-18)
 - (mcm1957) Migration to iobroker-community-adapters has been finalized.
 
 ### 2.0.0-alpha.1 (2023-09-15)
