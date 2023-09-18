@@ -33,6 +33,9 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+- (mcm1957) Migration to iobroker-community-adapters has been finalized.
+
 ### 2.0.0-alpha.1 (2023-09-15)
 - (mcm1957) Adapter requires node 16 or newer now.
 - (mcm1957) The adapter has been moved to iobroker-community-adapters.
