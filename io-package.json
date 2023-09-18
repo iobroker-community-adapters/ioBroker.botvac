@@ -45,26 +45,48 @@
       "zh-cn": "Neato Botvac\n\n"
     },
     "desc": {
-      "en": "ioBroker neato botvac Adapter",
-      "de": "ioBroker Neato Botvac Adapter",
-      "ru": "ioBroker Neato Botvac драйвер как образец"
+        "en": "ioBroker neato botvac Adapter\n",
+        "de": "ioBroker neato botvac Adapter\n",
+        "ru": "ioBroker neato botvac адаптер\n",
+        "pt": "adaptador de botato de ioBroker\n",
+        "nl": "ioBroker neato botvac Adapter\n",
+        "fr": "adaptateur de nato botvac ioBroker\n",
+        "it": "ioBroker neato botvac adattatore\n",
+        "es": "ioBroker neato botvac Adaptador\n",
+        "pl": "ioBroker neato Adapter\n",
+        "uk": "ioBroker neato botvac адаптер\n",
+        "zh-cn": "io Brokerato botc Adapter\n"
     },
     "authors": [
       "Pmant <patrickmo@gmx.de>"
     ],
+    "keywords": [
+        "botvac",
+        "neato"
+    ],
+    "license": "MIT",
     "platform": "Javascript/Node.js",
-    "mode": "daemon",
+    "main": "main.js",
     "icon": "botvac.png",
     "enabled": true,
     "extIcon": "https://raw.githubusercontent.com/iobroker-community-adapters/ioBroker.botvac/master/admin/botvac.png",
-    "keywords": [
-      "botvac",
-      "neato"
-    ],
-    "license": "MIT",
     "readme": "https://github.com/iobroker-community-adapters/ioBroker.botvac/blob/master/README.md",
     "loglevel": "info",
+    "mode": "daemon",
     "type": "household",
+    "compact": false,
+    "connectionType": "cloud",
+    "dataSource": "poll",
+    "dependencies": [
+        {
+          "js-controller": ">=4.0.24"
+        }
+      ],
+    "globalDependencies": [
+        {
+          "admin": ">=5.1.13"
+        }
+      ],  
     "restartAdapters": [
       "vis"
     ]
