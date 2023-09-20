@@ -33,6 +33,9 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+- (PeterVoronov) A problem causing crashes if some devices are unreachable has been fixed [#46]
+
 ### 2.0.0 (2023-09-18)
 - (mcm1957) Migration to iobroker-community-adapters has been finalized.
 
