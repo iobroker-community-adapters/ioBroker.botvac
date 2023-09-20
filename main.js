@@ -464,7 +464,8 @@ function main() {
 
 function update() {
     for (var i = 0; i < allRobotNames.length; i++) {
-        updateRobot(allRobots[allRobotNames[i]]);
+        //additional check, if delete nonexits robots is disabled in createRobotsObjects
+        if (allRobots.hasOwnProperty(allRobotNames[i]) && allRobots[allRobotNames[i]]) updateRobot(allRobots[allRobotNames[i]]);
     }
 }
 
