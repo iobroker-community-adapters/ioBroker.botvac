@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "botvac",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "news": {
+      "2.0.1": {
+        "en": "A problem causing crashes if some devices are unreachable has been fixed [#46]",
+        "de": "Ein Problem, das Abstürze verursachte wenn Geräte nicht erreichbar sind, wurde behoben [#46]",
+        "ru": "Проблема, вызывающая сбои, если некоторые устройства недоступны, была исправлена #[46]",
+        "pt": "Um problema causando falhas se alguns dispositivos são inacessíveis foi corrigido #[46]",
+        "nl": "Een probleem veroorzaakt crashes als sommige apparaten onbereikbaar zijn, is gerepareerd",
+        "fr": "Un problème causant des accidents si certains appareils sont inaccessibles a été corrigé #[46]",
+        "it": "Un problema che causa crash se alcuni dispositivi sono irraggiungibili è stato fissato #[46]",
+        "es": "Un problema que causa fallos si algunos dispositivos son inalcanzables ha sido fijado #[46]",
+        "pl": "Problem zderzenia się, jeśli niektóre urządzenia nie są w stanie naprawić #46",
+        "uk": "Проблема, що викликає аварійні ситуації, якщо деякі пристрої ненадійні були виправлені #[46]",
+        "zh-cn": "如果某些装置无法控制,造成事故的问题是固定的[46]"
+      },
       "2.0.0": {
         "en": "Migration to iobroker-community-adapters has been finalized.",
         "de": "Die Migration zu iobroker-community-adapters wurde abgeschlossen.",
