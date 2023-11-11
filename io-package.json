@@ -58,17 +58,17 @@
     },
     "title": "Neato Botvac",
     "titleLang": {
-      "en": "Neato Botvac\n\n",
-      "de": "Neato Botvac\n\n",
-      "ru": "Неато Botvac\n\n",
-      "pt": "Neato Botvac\n\n",
-      "nl": "Neato Botvac\n\n",
-      "fr": "Neato Botvac\n\n",
-      "it": "Neato Botvac\n\n",
-      "es": "Neato Botvac\n\n",
-      "pl": "Neato Botvac\n\n",
-      "uk": "Неато Ботва\n\n",
-      "zh-cn": "Neato Botvac\n\n"
+      "en": "Neato Botvac",
+      "de": "Neato Botvac",
+      "ru": "Неато Botvac",
+      "pt": "Neato Botvac",
+      "nl": "Neato Botvac",
+      "fr": "Neato Botvac",
+      "it": "Neato Botvac",
+      "es": "Neato Botvac",
+      "pl": "Neato Botvac",
+      "uk": "Неато Ботва",
+      "zh-cn": "Neato Botvac"
     },
     "desc": {
       "en": "ioBroker neato botvac Adapter\n",
