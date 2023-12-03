@@ -527,8 +527,12 @@ function updateRobot(robot, callback) {
         adapter.setState(robot.name + '.status.modelName', state.meta.modelName, true);
         adapter.setState(robot.name + '.status.firmware', state.meta.firmware, true);
         adapter.setState(robot.name + '.commands.eco', robot.eco, true);
-        adapter.setState(robot.name + '.commands.spotWidth', robot.spotWidth, true);
-        adapter.setState(robot.name + '.commands.spotHeight', robot.spotHeight, true);
+        if (robot.spotWidth) {
+            adapter.setState(robot.name + '.commands.spotWidth', robot.spotWidth, true);
+        }
+        if (robot.spotHeight) {
+            adapter.setState(robot.name + '.commands.spotHeight', robot.spotHeight, true);
+        }
         adapter.setState(robot.name + '.commands.spotRepeat', robot.spotRepeat, true);
         if (typeof callback === 'function') {
             callback(null);
