@@ -34,7 +34,7 @@
     ### **WORK IN PROGRESS**
 -->
 ### **WORK IN PROGRESS** [#29]
-- (ar7bd) SpotWidth and spotHeight are noew allowed to be 0
+- (ar7bd) SpotWidth and spotHeight are now allowed to be zero.
 - (mcm1957) Dependencies have been updated.
 
 ### 2.0.1 (2023-09-20)
