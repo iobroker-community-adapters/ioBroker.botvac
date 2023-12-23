@@ -33,7 +33,7 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS** [#29]
+### 2.0.2-alpha.0 (2023-12-23) [#29]
 - (ar7bd) SpotWidth and spotHeight are now allowed to be zero.
 - (mcm1957) Dependencies have been updated.
 
