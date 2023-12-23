@@ -639,7 +639,7 @@ function prepareRobotsStructure(robots, devices, callback) {
                                     read: true,
                                     write: true,
                                     def: 100,
-                                    min: 100,
+                                    min: 0,
                                     unit: 'cm',
                                     role: 'level.width'
                                 }
@@ -650,7 +650,7 @@ function prepareRobotsStructure(robots, devices, callback) {
                                     read: true,
                                     write: true,
                                     def: 100,
-                                    min: 100,
+                                    min: 0,
                                     unit: 'cm',
                                     role: 'level.height'
                                 }
