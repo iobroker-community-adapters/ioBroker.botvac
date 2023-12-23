@@ -3,19 +3,6 @@
     "name": "botvac",
     "version": "2.0.2-alpha.0",
     "news": {
-      "2.0.2-alpha.0": {
-        "en": "SpotWidth and spotHeight are now allowed to be zero.\nDependencies have been updated.",
-        "de": "SpotWidth und SpotHeight darf nun Null sein.\nAbhängigkeiten wurden aktualisiert.",
-        "ru": "SpotWidth и место Высота теперь разрешена быть нулевым.\nОбновлены зависимости.",
-        "pt": "SpotWidth e spot A altura agora pode ser zero.\nAs dependências foram atualizadas.",
-        "nl": "SpotWidth De lengte is nu toegestaan om nul te zijn.\nAfhankelijkheid is geüpdateerd.",
-        "fr": "SpotWidth et spot La hauteur est maintenant permise à zéro.\nLes dépendances ont été mises à jour.",
-        "it": "SpotWidth e spot Ora l'altezza è zero.\nLe dipendenze sono state aggiornate.",
-        "es": "SpotWidth y spot Se permite que la altura sea cero.\nSe han actualizado las dependencias.",
-        "pl": "SpotWidth i miejsce Teraz dozwolone jest zera.\nW zależności zostały zaktualizowane.",
-        "uk": "SpotWidth і плями Висота тепер дозволено бути нуль.\nОновлено залежність.",
-        "zh-cn": "SpotWidth和点 现在有人允许他零。.\n情况已经更新。."
-      },
       "2.0.1": {
         "en": "A problem causing crashes if some devices are unreachable has been fixed [#46]",
         "de": "Ein Problem, das Abstürze verursachte wenn Geräte nicht erreichbar sind, wurde behoben [#46]",
