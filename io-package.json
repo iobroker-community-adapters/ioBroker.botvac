@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "botvac",
-    "version": "2.0.2",
+    "version": "2.1.0",
     "news": {
+      "2.1.0": {
+        "en": "Adapter requires node 18 or newer now.\nDependencies have been updated.",
+        "de": "Adapter benötigt jetzt Node 18 oder neuer.\nAbhängigkeiten wurden aktualisiert.",
+        "ru": "Адаптер теперь требует узла 18 или более нового.\nЗависимость была обновлена.",
+        "pt": "Adaptador requer nó 18 ou mais recente agora.\nAs dependências foram atualizadas.",
+        "nl": "Adapter vereist node 18 of nieuwer nu.\nAfhankelijkheden zijn bijgewerkt.",
+        "fr": "Adaptateur nécessite un noeud 18 ou plus récent maintenant.\nLes dépendances ont été actualisées.",
+        "it": "L'adattatore richiede ora il nodo 18 o più nuovo.\nLe dipendenze sono state aggiornate.",
+        "es": "Adaptador requiere nodo 18 o más nuevo ahora.\nSe han actualizado las dependencias.",
+        "pl": "Adapter wymaga węzła 18 lub nowszego.\nZaktualizowano zależność.",
+        "uk": "Адаптер вимагає вузла 18 або новіше зараз.\nОновлено залежність.",
+        "zh-cn": "适配器需要节点18或现在更新.\n附属关系已经更新."
+      },
       "2.0.2": {
         "en": "SpotWidth and spotHeight are now allowed to be zero. [#29]\nDependencies have been updated.",
         "de": "SpotWidth und SpotHeight darf nun Null sein. (#29)\nAbhängigkeiten wurden aktualisiert.",
