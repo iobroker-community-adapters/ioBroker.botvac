@@ -33,6 +33,10 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+- (mcm1957) Adapter requires node 18 or newer now.
+- (mcm1957) Dependencies have been updated.
+
 ### 2.0.2 (2023-12-23)
 - (ar7bd) SpotWidth and spotHeight are now allowed to be zero. [#29]
 - (mcm1957) Dependencies have been updated.
@@ -72,7 +76,7 @@
 
 MIT License
 
-Copyright (c) 2023 iobroker-community-adapters <mcm57@gmx.at>
+Copyright (c) 2023-2024 iobroker-community-adapters <mcm57@gmx.at>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
