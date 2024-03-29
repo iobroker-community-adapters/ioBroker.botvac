@@ -82,7 +82,6 @@
         "zh-cn": "适应者被移到了加勒比妓院。\n这一释放是载有目前包商内容的合并版本。.\n情况已经更新。."
       }
     },
-    "title": "Neato Botvac",
     "titleLang": {
       "en": "Neato Botvac",
       "de": "Neato Botvac",
@@ -131,7 +130,7 @@
     "dataSource": "poll",
     "dependencies": [
       {
-        "js-controller": ">=4.0.24"
+        "js-controller": ">=5.0.0"
       }
     ],
     "globalDependencies": [
@@ -140,7 +139,8 @@
       }
     ],
     "restartAdapters": [
-      "vis"
+      "vis",
+      "vis-2"
     ]
   },
   "native": {

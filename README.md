@@ -33,6 +33,10 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (mcm1957) Adapter requires node.js 18 and js-controller >= 5 now
+* (mcm1957) Dependencies have been updated
+
 ### 2.1.0 (2024-03-21)
 - (mcm1957) Adapter requires node 18 or newer now.
 - (mcm1957) Dependencies have been updated.
