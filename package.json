@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "node-botvac": "PeterVoronov/node-botvac#0.4.2-schedule-write",
-    "@iobroker/adapter-core": "^3.0.6"
+    "@iobroker/adapter-core": "^3.1.4"
   },
   "devDependencies": {
     "@alcalzone/release-script": "^3.7.0",
