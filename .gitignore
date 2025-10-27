@@ -1,3 +1,5 @@
 /.idea
 /node_modules
 testbotvac.js
+#ignore .commitinfo created by ioBroker release script
+.commitinfo
