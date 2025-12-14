@@ -1,169 +1,168 @@
 {
-  "common": {
-    "name": "botvac",
-    "version": "2.2.0",
-    "news": {
-      "2.2.0": {
-        "en": "Adapter requires node.js 18 and js-controller >= 5 now\nDependencies have been updated",
-        "de": "Adapter benötigt node.js 18 und js-controller >= 5 jetzt\nAbhängigkeiten wurden aktualisiert",
-        "ru": "Адаптер требует node.js 18 и js-controller >= 5 сейчас\nЗависимость обновлена",
-        "pt": "Adapter requer node.js 18 e js-controller >= 5 agora\nAs dependências foram atualizadas",
-        "nl": "Adapter vereist node.js 18 en js-controller Nu 5\nAfhankelijkheden zijn bijgewerkt",
-        "fr": "Adaptateur nécessite node.js 18 et js-controller >= 5 maintenant\nLes dépendances ont été actualisées",
-        "it": "Adattatore richiede node.js 18 e js-controller >= 5 ora\nLe dipendenze sono state aggiornate",
-        "es": "Adaptador requiere node.js 18 y js-controller √= 5 ahora\nSe han actualizado las dependencias",
-        "pl": "Adapter wymaga node.js 18 i sterownika js- > = 5 teraz\nZaktualizowano zależności",
-        "uk": "Адаптер вимагає node.js 18 і js-controller >= 5 тепер\nЗалежність було оновлено",
-        "zh-cn": "适配器需要节点.js 18和js控制器 QQ 现在5号\n依赖关系已更新"
-      },
-      "2.1.0": {
-        "en": "Adapter requires node 18 or newer now.\nDependencies have been updated.",
-        "de": "Adapter benötigt jetzt Node 18 oder neuer.\nAbhängigkeiten wurden aktualisiert.",
-        "ru": "Адаптер теперь требует узла 18 или более нового.\nЗависимость была обновлена.",
-        "pt": "Adaptador requer nó 18 ou mais recente agora.\nAs dependências foram atualizadas.",
-        "nl": "Adapter vereist node 18 of nieuwer nu.\nAfhankelijkheden zijn bijgewerkt.",
-        "fr": "Adaptateur nécessite un noeud 18 ou plus récent maintenant.\nLes dépendances ont été actualisées.",
-        "it": "L'adattatore richiede ora il nodo 18 o più nuovo.\nLe dipendenze sono state aggiornate.",
-        "es": "Adaptador requiere nodo 18 o más nuevo ahora.\nSe han actualizado las dependencias.",
-        "pl": "Adapter wymaga węzła 18 lub nowszego.\nZaktualizowano zależność.",
-        "uk": "Адаптер вимагає вузла 18 або новіше зараз.\nОновлено залежність.",
-        "zh-cn": "适配器需要节点18或现在更新.\n附属关系已经更新."
-      },
-      "2.0.2": {
-        "en": "SpotWidth and spotHeight are now allowed to be zero. [#29]\nDependencies have been updated.",
-        "de": "SpotWidth und SpotHeight darf nun Null sein. (#29)\nAbhängigkeiten wurden aktualisiert.",
-        "ru": "SpotWidth и место Высота теперь разрешена быть нулевым. [#29]\nОбновлены зависимости.",
-        "pt": "SpotWidth e spot A altura agora pode ser zero. [#29]\nAs dependências foram atualizadas.",
-        "nl": "SpotWidth De lengte is nu toegestaan om nul te zijn. _\nAfhankelijkheid is geüpdateerd.",
-        "fr": "SpotWidth et spot La hauteur est maintenant permise à zéro. [#29]\nLes dépendances ont été mises à jour.",
-        "it": "SpotWidth e spot Ora l'altezza è zero. [#29]\nLe dipendenze sono state aggiornate.",
-        "es": "SpotWidth y spot Se permite que la altura sea cero. [#29]\nSe han actualizado las dependencias.",
-        "pl": "SpotWidth i miejsce Teraz dozwolone jest zera. (#29)\nW zależności zostały zaktualizowane.",
-        "uk": "SpotWidth і плями Висота тепер дозволено бути нуль. [#29]\nОновлено залежність.",
-        "zh-cn": "SpotWidth和点 现在有人允许他零。 [第29条]\n情况已经更新。."
-      },
-      "2.0.1": {
-        "en": "A problem causing crashes if some devices are unreachable has been fixed [#46]",
-        "de": "Ein Problem, das Abstürze verursachte wenn Geräte nicht erreichbar sind, wurde behoben [#46]",
-        "ru": "Проблема, вызывающая сбои, если некоторые устройства недоступны, была исправлена #[46]",
-        "pt": "Um problema causando falhas se alguns dispositivos são inacessíveis foi corrigido #[46]",
-        "nl": "Een probleem veroorzaakt crashes als sommige apparaten onbereikbaar zijn, is gerepareerd",
-        "fr": "Un problème causant des accidents si certains appareils sont inaccessibles a été corrigé #[46]",
-        "it": "Un problema che causa crash se alcuni dispositivi sono irraggiungibili è stato fissato #[46]",
-        "es": "Un problema que causa fallos si algunos dispositivos son inalcanzables ha sido fijado #[46]",
-        "pl": "Problem zderzenia się, jeśli niektóre urządzenia nie są w stanie naprawić #46",
-        "uk": "Проблема, що викликає аварійні ситуації, якщо деякі пристрої ненадійні були виправлені #[46]",
-        "zh-cn": "如果某些装置无法控制,造成事故的问题是固定的[46]"
-      },
-      "2.0.0": {
-        "en": "Migration to iobroker-community-adapters has been finalized.",
-        "de": "Die Migration zu iobroker-community-adapters wurde abgeschlossen.",
-        "ru": "Миграция на iobroker-community-adapters была завершена.",
-        "pt": "Migração a iobroker-community-adapters foi finalizada.",
-        "nl": "Migration tot iobroker-community-apters is afgerond.",
-        "fr": "La migration vers les adaptateurs-communautaires a été finalisée.",
-        "it": "La migrazione agli adattatori della comunità-iobroker è stata finalizzata.",
-        "es": "Se ha finalizado la migración a ibroker-community-adapters.",
-        "pl": "Ogłoszono, że wymiana do iobroker-kommunity-adapter została zakończona.",
-        "uk": "Узгоджується міграція до iobroker-community-adapters.",
-        "zh-cn": "已经最后敲定了向加勒比妓院的移徙。."
-      },
-      "2.0.0-alpha.1": {
-        "en": "Adapter requires node 16 or newer now.\nThe adapter has been moved to iobroker-community-adapters.\nThis release is a consolidated version containing current github content.\nAdapter should be compatible to js-controller 5 now.\nDependencies have been updated.",
-        "de": "Adapter benötigt jetzt Node 16 oder neuer.\nDer Adapter wurde zu iobroker-community-Adaptern verschoben.\nDiese Version ist eine konsolidierte Version mit aktuellem Github-Stand.\nAdapter sollte jetzt mit dem js-Controller 5 kompatibel sein.\nAbhängigkeiten wurden aktualisiert.",
-        "ru": "Адаптер требует ноды 16 или новее теперь.\nАдаптер переехал в iobroker-community-adapters.\nДанный релиз является консолидированной версией, содержащей текущее содержание github.\nАдаптер должен быть совместим с js-controller 5 сейчас.\nОбновлены зависимости.",
-        "pt": "Adaptador requer nó 16 ou mais recente agora.\nO adaptador foi movido para iobroker-community-adapters.\nEsta versão é uma versão consolidada contendo conteúdo github atual.\nO adaptador deve ser compatível com js-controller 5 agora.\nAs dependências foram atualizadas.",
-        "nl": "Adapter vereist node 16 of Newer nu.\nDe adapter is verplaatst naar iobroker-community-apters.\nDeze vrijlating is een troostige versie met de huidige github tevredenheid.\nAdapter zou nu compatibel moeten zijn voor Js-controller 5.\nAfhankelijkheid is geüpdateerd.",
-        "fr": "L'adaptateur nécessite 16 ans ou plus maintenant.\nL'adaptateur a été déplacé vers les adaptateurs iobroker-community.\nCette version est une version consolidée contenant la teneur en github actuelle.\nL'adaptateur doit être compatible avec js-controller 5 maintenant.\nLes dépendances ont été mises à jour.",
-        "it": "Adattatore richiede nodo 16 o più nuovo ora.\nL'adattatore è stato spostato in hobroker-community-adapters.\nQuesta versione è una versione consolidata contenente il contenuto github corrente.\nL'adattatore dovrebbe essere compatibile con js-controller 5 ora.\nLe dipendenze sono state aggiornate.",
-        "es": "Adaptador requiere nodo 16 o más nuevo ahora.\nEl adaptador se ha movido a iobroker-community-adapters.\nEsta versión es una versión consolidada que contiene el contenido actual de github.\nAdaptador debe ser compatible con js-controller 5 ahora.\nSe han actualizado las dependencias.",
-        "pl": "Adapter wymaga węzła 16 lub nowszego.\nAdaptator został przeniesiony do iobroker-community-adapter.\nJest to skonsolidowana wersja zawierająca aktualne treści github.\nAdapter powinien być kompatybilny z js-kontrolerem 5.\nW zależności zostały zaktualizowane.",
-        "uk": "Адаптер вимагає вузла 16 або новіше зараз.\nПерехідник був перенесений на iobroker-community-adapters.\nЦей реліз є консолідованою версією, що містить поточний вміст github.\nАдаптер повинен бути сумісний з js-controller 5 тепер.\nОновлено залежність.",
-        "zh-cn": "现在不需要16个或新的人员。.\n适应者被移到了加勒比妓院。.\n这一释放是载有目前包商内容的合并版本。.\n现在应该符合控制的容忍5。.\n情况已经更新。."
-      },
-      "2.0.0-alpha.0": {
-        "en": "The adapter has been moved to iobroker-community-adapters\nThis release is a consolidated version containing current github content.\nDependencies have been updated.",
-        "de": "Der Adapter wurde zu iobroker-community-Adaptern verschoben.\nDiese Version ist eine konsolidierte Version mit aktuellem Github Inhalt.\nAbhängigkeiten wurden aktualisiert.",
-        "ru": "Адаптер переехал в iobroker-community-adapters\nДанный релиз является консолидированной версией, содержащей текущее содержание github.\nОбновлены зависимости.",
-        "pt": "O adaptador foi movido para iobroker-community-adapters\nEsta versão é uma versão consolidada contendo conteúdo github atual.\nAs dependências foram atualizadas.",
-        "nl": "De adapter is verplaatst naar iobroker-community-papters\nDeze vrijlating is een troostige versie met de huidige github tevredenheid.\nAfhankelijkheid is geüpdateerd.",
-        "fr": "L'adaptateur a été déplacé aux adaptateurs iobroker-community\nCette version est une version consolidée contenant la teneur en github actuelle.\nLes dépendances ont été mises à jour.",
-        "it": "L'adattatore è stato spostato a iobroker-community-adattatori\nQuesta versione è una versione consolidata contenente il contenuto github corrente.\nLe dipendenze sono state aggiornate.",
-        "es": "El adaptador se ha movido a iobroker-community-adapters\nEsta versión es una versión consolidada que contiene el contenido actual de github.\nSe han actualizado las dependencias.",
-        "pl": "Adaptator został przeniesiony do iobroker-community-adapter\nJest to skonsolidowana wersja zawierająca aktualne treści github.\nW zależności zostały zaktualizowane.",
-        "uk": "Перехідник був перенесений на iobroker-community-adapters\nЦей реліз є консолідованою версією, що містить поточний вміст github.\nОновлено залежність.",
-        "zh-cn": "适应者被移到了加勒比妓院。\n这一释放是载有目前包商内容的合并版本。.\n情况已经更新。."
-      }
+    "common": {
+        "name": "botvac",
+        "version": "2.2.0",
+        "news": {
+            "2.2.0": {
+                "en": "Adapter requires node.js 18 and js-controller >= 5 now\nDependencies have been updated",
+                "de": "Adapter benötigt node.js 18 und js-controller >= 5 jetzt\nAbhängigkeiten wurden aktualisiert",
+                "ru": "Адаптер требует node.js 18 и js-controller >= 5 сейчас\nЗависимость обновлена",
+                "pt": "Adapter requer node.js 18 e js-controller >= 5 agora\nAs dependências foram atualizadas",
+                "nl": "Adapter vereist node.js 18 en js-controller Nu 5\nAfhankelijkheden zijn bijgewerkt",
+                "fr": "Adaptateur nécessite node.js 18 et js-controller >= 5 maintenant\nLes dépendances ont été actualisées",
+                "it": "Adattatore richiede node.js 18 e js-controller >= 5 ora\nLe dipendenze sono state aggiornate",
+                "es": "Adaptador requiere node.js 18 y js-controller √= 5 ahora\nSe han actualizado las dependencias",
+                "pl": "Adapter wymaga node.js 18 i sterownika js- > = 5 teraz\nZaktualizowano zależności",
+                "uk": "Адаптер вимагає node.js 18 і js-controller >= 5 тепер\nЗалежність було оновлено",
+                "zh-cn": "适配器需要节点.js 18和js控制器 QQ 现在5号\n依赖关系已更新"
+            },
+            "2.1.0": {
+                "en": "Adapter requires node 18 or newer now.\nDependencies have been updated.",
+                "de": "Adapter benötigt jetzt Node 18 oder neuer.\nAbhängigkeiten wurden aktualisiert.",
+                "ru": "Адаптер теперь требует узла 18 или более нового.\nЗависимость была обновлена.",
+                "pt": "Adaptador requer nó 18 ou mais recente agora.\nAs dependências foram atualizadas.",
+                "nl": "Adapter vereist node 18 of nieuwer nu.\nAfhankelijkheden zijn bijgewerkt.",
+                "fr": "Adaptateur nécessite un noeud 18 ou plus récent maintenant.\nLes dépendances ont été actualisées.",
+                "it": "L'adattatore richiede ora il nodo 18 o più nuovo.\nLe dipendenze sono state aggiornate.",
+                "es": "Adaptador requiere nodo 18 o más nuevo ahora.\nSe han actualizado las dependencias.",
+                "pl": "Adapter wymaga węzła 18 lub nowszego.\nZaktualizowano zależność.",
+                "uk": "Адаптер вимагає вузла 18 або новіше зараз.\nОновлено залежність.",
+                "zh-cn": "适配器需要节点18或现在更新.\n附属关系已经更新."
+            },
+            "2.0.2": {
+                "en": "SpotWidth and spotHeight are now allowed to be zero. [#29]\nDependencies have been updated.",
+                "de": "SpotWidth und SpotHeight darf nun Null sein. (#29)\nAbhängigkeiten wurden aktualisiert.",
+                "ru": "SpotWidth и место Высота теперь разрешена быть нулевым. [#29]\nОбновлены зависимости.",
+                "pt": "SpotWidth e spot A altura agora pode ser zero. [#29]\nAs dependências foram atualizadas.",
+                "nl": "SpotWidth De lengte is nu toegestaan om nul te zijn. _\nAfhankelijkheid is geüpdateerd.",
+                "fr": "SpotWidth et spot La hauteur est maintenant permise à zéro. [#29]\nLes dépendances ont été mises à jour.",
+                "it": "SpotWidth e spot Ora l'altezza è zero. [#29]\nLe dipendenze sono state aggiornate.",
+                "es": "SpotWidth y spot Se permite que la altura sea cero. [#29]\nSe han actualizado las dependencias.",
+                "pl": "SpotWidth i miejsce Teraz dozwolone jest zera. (#29)\nW zależności zostały zaktualizowane.",
+                "uk": "SpotWidth і плями Висота тепер дозволено бути нуль. [#29]\nОновлено залежність.",
+                "zh-cn": "SpotWidth和点 现在有人允许他零。 [第29条]\n情况已经更新。."
+            },
+            "2.0.1": {
+                "en": "A problem causing crashes if some devices are unreachable has been fixed [#46]",
+                "de": "Ein Problem, das Abstürze verursachte wenn Geräte nicht erreichbar sind, wurde behoben [#46]",
+                "ru": "Проблема, вызывающая сбои, если некоторые устройства недоступны, была исправлена #[46]",
+                "pt": "Um problema causando falhas se alguns dispositivos são inacessíveis foi corrigido #[46]",
+                "nl": "Een probleem veroorzaakt crashes als sommige apparaten onbereikbaar zijn, is gerepareerd",
+                "fr": "Un problème causant des accidents si certains appareils sont inaccessibles a été corrigé #[46]",
+                "it": "Un problema che causa crash se alcuni dispositivi sono irraggiungibili è stato fissato #[46]",
+                "es": "Un problema que causa fallos si algunos dispositivos son inalcanzables ha sido fijado #[46]",
+                "pl": "Problem zderzenia się, jeśli niektóre urządzenia nie są w stanie naprawić #46",
+                "uk": "Проблема, що викликає аварійні ситуації, якщо деякі пристрої ненадійні були виправлені #[46]",
+                "zh-cn": "如果某些装置无法控制,造成事故的问题是固定的[46]"
+            },
+            "2.0.0": {
+                "en": "Migration to iobroker-community-adapters has been finalized.",
+                "de": "Die Migration zu iobroker-community-adapters wurde abgeschlossen.",
+                "ru": "Миграция на iobroker-community-adapters была завершена.",
+                "pt": "Migração a iobroker-community-adapters foi finalizada.",
+                "nl": "Migration tot iobroker-community-apters is afgerond.",
+                "fr": "La migration vers les adaptateurs-communautaires a été finalisée.",
+                "it": "La migrazione agli adattatori della comunità-iobroker è stata finalizzata.",
+                "es": "Se ha finalizado la migración a ibroker-community-adapters.",
+                "pl": "Ogłoszono, że wymiana do iobroker-kommunity-adapter została zakończona.",
+                "uk": "Узгоджується міграція до iobroker-community-adapters.",
+                "zh-cn": "已经最后敲定了向加勒比妓院的移徙。."
+            },
+            "2.0.0-alpha.1": {
+                "en": "Adapter requires node 16 or newer now.\nThe adapter has been moved to iobroker-community-adapters.\nThis release is a consolidated version containing current github content.\nAdapter should be compatible to js-controller 5 now.\nDependencies have been updated.",
+                "de": "Adapter benötigt jetzt Node 16 oder neuer.\nDer Adapter wurde zu iobroker-community-Adaptern verschoben.\nDiese Version ist eine konsolidierte Version mit aktuellem Github-Stand.\nAdapter sollte jetzt mit dem js-Controller 5 kompatibel sein.\nAbhängigkeiten wurden aktualisiert.",
+                "ru": "Адаптер требует ноды 16 или новее теперь.\nАдаптер переехал в iobroker-community-adapters.\nДанный релиз является консолидированной версией, содержащей текущее содержание github.\nАдаптер должен быть совместим с js-controller 5 сейчас.\nОбновлены зависимости.",
+                "pt": "Adaptador requer nó 16 ou mais recente agora.\nO adaptador foi movido para iobroker-community-adapters.\nEsta versão é uma versão consolidada contendo conteúdo github atual.\nO adaptador deve ser compatível com js-controller 5 agora.\nAs dependências foram atualizadas.",
+                "nl": "Adapter vereist node 16 of Newer nu.\nDe adapter is verplaatst naar iobroker-community-apters.\nDeze vrijlating is een troostige versie met de huidige github tevredenheid.\nAdapter zou nu compatibel moeten zijn voor Js-controller 5.\nAfhankelijkheid is geüpdateerd.",
+                "fr": "L'adaptateur nécessite 16 ans ou plus maintenant.\nL'adaptateur a été déplacé vers les adaptateurs iobroker-community.\nCette version est une version consolidée contenant la teneur en github actuelle.\nL'adaptateur doit être compatible avec js-controller 5 maintenant.\nLes dépendances ont été mises à jour.",
+                "it": "Adattatore richiede nodo 16 o più nuovo ora.\nL'adattatore è stato spostato in hobroker-community-adapters.\nQuesta versione è una versione consolidata contenente il contenuto github corrente.\nL'adattatore dovrebbe essere compatibile con js-controller 5 ora.\nLe dipendenze sono state aggiornate.",
+                "es": "Adaptador requiere nodo 16 o más nuevo ahora.\nEl adaptador se ha movido a iobroker-community-adapters.\nEsta versión es una versión consolidada que contiene el contenido actual de github.\nAdaptador debe ser compatible con js-controller 5 ahora.\nSe han actualizado las dependencias.",
+                "pl": "Adapter wymaga węzła 16 lub nowszego.\nAdaptator został przeniesiony do iobroker-community-adapter.\nJest to skonsolidowana wersja zawierająca aktualne treści github.\nAdapter powinien być kompatybilny z js-kontrolerem 5.\nW zależności zostały zaktualizowane.",
+                "uk": "Адаптер вимагає вузла 16 або новіше зараз.\nПерехідник був перенесений на iobroker-community-adapters.\nЦей реліз є консолідованою версією, що містить поточний вміст github.\nАдаптер повинен бути сумісний з js-controller 5 тепер.\nОновлено залежність.",
+                "zh-cn": "现在不需要16个或新的人员。.\n适应者被移到了加勒比妓院。.\n这一释放是载有目前包商内容的合并版本。.\n现在应该符合控制的容忍5。.\n情况已经更新。."
+            },
+            "2.0.0-alpha.0": {
+                "en": "The adapter has been moved to iobroker-community-adapters\nThis release is a consolidated version containing current github content.\nDependencies have been updated.",
+                "de": "Der Adapter wurde zu iobroker-community-Adaptern verschoben.\nDiese Version ist eine konsolidierte Version mit aktuellem Github Inhalt.\nAbhängigkeiten wurden aktualisiert.",
+                "ru": "Адаптер переехал в iobroker-community-adapters\nДанный релиз является консолидированной версией, содержащей текущее содержание github.\nОбновлены зависимости.",
+                "pt": "O adaptador foi movido para iobroker-community-adapters\nEsta versão é uma versão consolidada contendo conteúdo github atual.\nAs dependências foram atualizadas.",
+                "nl": "De adapter is verplaatst naar iobroker-community-papters\nDeze vrijlating is een troostige versie met de huidige github tevredenheid.\nAfhankelijkheid is geüpdateerd.",
+                "fr": "L'adaptateur a été déplacé aux adaptateurs iobroker-community\nCette version est une version consolidée contenant la teneur en github actuelle.\nLes dépendances ont été mises à jour.",
+                "it": "L'adattatore è stato spostato a iobroker-community-adattatori\nQuesta versione è una versione consolidata contenente il contenuto github corrente.\nLe dipendenze sono state aggiornate.",
+                "es": "El adaptador se ha movido a iobroker-community-adapters\nEsta versión es una versión consolidada que contiene el contenido actual de github.\nSe han actualizado las dependencias.",
+                "pl": "Adaptator został przeniesiony do iobroker-community-adapter\nJest to skonsolidowana wersja zawierająca aktualne treści github.\nW zależności zostały zaktualizowane.",
+                "uk": "Перехідник був перенесений на iobroker-community-adapters\nЦей реліз є консолідованою версією, що містить поточний вміст github.\nОновлено залежність.",
+                "zh-cn": "适应者被移到了加勒比妓院。\n这一释放是载有目前包商内容的合并版本。.\n情况已经更新。."
+            }
+        },
+        "titleLang": {
+            "en": "Neato Botvac",
+            "de": "Neato Botvac",
+            "ru": "Неато Botvac",
+            "pt": "Neato Botvac",
+            "nl": "Neato Botvac",
+            "fr": "Neato Botvac",
+            "it": "Neato Botvac",
+            "es": "Neato Botvac",
+            "pl": "Neato Botvac",
+            "uk": "Неато Ботва",
+            "zh-cn": "Neato Botvac"
+        },
+        "desc": {
+            "en": "ioBroker neato botvac Adapter\n",
+            "de": "ioBroker neato botvac Adapter\n",
+            "ru": "ioBroker neato botvac адаптер\n",
+            "pt": "adaptador de botato de ioBroker\n",
+            "nl": "ioBroker neato botvac Adapter\n",
+            "fr": "adaptateur de nato botvac ioBroker\n",
+            "it": "ioBroker neato botvac adattatore\n",
+            "es": "ioBroker neato botvac Adaptador\n",
+            "pl": "ioBroker neato Adapter\n",
+            "uk": "ioBroker neato botvac адаптер\n",
+            "zh-cn": "io Brokerato botc Adapter\n"
+        },
+        "authors": [
+            "Pmant <patrickmo@gmx.de>"
+        ],
+        "keywords": [
+            "botvac",
+            "neato"
+        ],
+        "licenseInformation": {
+            "license": "MIT",
+            "type": "free"
+        },
+        "platform": "Javascript/Node.js",
+        "icon": "botvac.png",
+        "enabled": true,
+        "extIcon": "https://raw.githubusercontent.com/iobroker-community-adapters/ioBroker.botvac/master/admin/botvac.png",
+        "readme": "https://github.com/iobroker-community-adapters/ioBroker.botvac/blob/master/README.md",
+        "loglevel": "info",
+        "tier": 2,
+        "mode": "daemon",
+        "type": "household",
+        "compact": false,
+        "connectionType": "cloud",
+        "dataSource": "poll",
+        "dependencies": [
+            {
+                "js-controller": ">=5.0.0"
+            }
+        ],
+        "globalDependencies": [
+            {
+                "admin": ">=5.1.13"
+            }
+        ],
+        "restartAdapters": [
+            "vis",
+            "vis-2"
+        ]
     },
-    "titleLang": {
-      "en": "Neato Botvac",
-      "de": "Neato Botvac",
-      "ru": "Неато Botvac",
-      "pt": "Neato Botvac",
-      "nl": "Neato Botvac",
-      "fr": "Neato Botvac",
-      "it": "Neato Botvac",
-      "es": "Neato Botvac",
-      "pl": "Neato Botvac",
-      "uk": "Неато Ботва",
-      "zh-cn": "Neato Botvac"
+    "native": {
+        "mail": null,
+        "password": null,
+        "pollInterval": 60
     },
-    "desc": {
-      "en": "ioBroker neato botvac Adapter\n",
-      "de": "ioBroker neato botvac Adapter\n",
-      "ru": "ioBroker neato botvac адаптер\n",
-      "pt": "adaptador de botato de ioBroker\n",
-      "nl": "ioBroker neato botvac Adapter\n",
-      "fr": "adaptateur de nato botvac ioBroker\n",
-      "it": "ioBroker neato botvac adattatore\n",
-      "es": "ioBroker neato botvac Adaptador\n",
-      "pl": "ioBroker neato Adapter\n",
-      "uk": "ioBroker neato botvac адаптер\n",
-      "zh-cn": "io Brokerato botc Adapter\n"
-    },
-    "authors": [
-      "Pmant <patrickmo@gmx.de>"
-    ],
-    "keywords": [
-      "botvac",
-      "neato"
-    ],
-    "licenseInformation": {
-      "license": "MIT",
-      "type": "free"
-    },
-    "platform": "Javascript/Node.js",
-    "main": "main.js",
-    "icon": "botvac.png",
-    "enabled": true,
-    "extIcon": "https://raw.githubusercontent.com/iobroker-community-adapters/ioBroker.botvac/master/admin/botvac.png",
-    "readme": "https://github.com/iobroker-community-adapters/ioBroker.botvac/blob/master/README.md",
-    "loglevel": "info",
-    "tier": 2,
-    "mode": "daemon",
-    "type": "household",
-    "compact": false,
-    "connectionType": "cloud",
-    "dataSource": "poll",
-    "dependencies": [
-      {
-        "js-controller": ">=5.0.0"
-      }
-    ],
-    "globalDependencies": [
-      {
-        "admin": ">=5.1.13"
-      }
-    ],
-    "restartAdapters": [
-      "vis",
-      "vis-2"
-    ]
-  },
-  "native": {
-    "mail": null,
-    "password": null,
-    "pollInterval": 60
-  },
-  "objects": []
+    "objects": []
 }
