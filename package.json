@@ -2,23 +2,11 @@
   "name": "iobroker.botvac",
   "version": "2.2.0",
   "description": "ioBroker botvac Adapter",
-  "author": {
-    "name": "Pmant",
-    "email": "patrickmo@gmx.de"
-  },
+  "author": "Pmant <patrickmo@gmx.de>",
   "contributors": [
-    {
-      "name": "Pmant",
-      "email": "patrickmo@gmx.de"
-    },
-    {
-      "name": "mcm1957",
-      "email": "mcm57@gmx.de"
-    },
-    {
-      "name": "iobroker-community-adapters",
-      "email": "iobroker-community-adapters@gmx.de"
-    }
+    "Pmant <patrickmo@gmx.de>",
+    "mcm1957 <mcm57@gmx.de>",
+    "iobroker-community-adapters <iobroker-community-adapters@gmx.de>"
   ],
   "homepage": "https://github.com/iobroker-community-adapters/ioBroker.botvac",
   "license": "MIT",
