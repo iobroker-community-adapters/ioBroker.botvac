@@ -6,3 +6,5 @@ node_modules
 /node_modules
 test
 testbotvac.js
+eslint.config.mjs
+prettier.config.mjs
