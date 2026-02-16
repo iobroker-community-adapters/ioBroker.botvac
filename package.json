@@ -20,7 +20,7 @@
     "url": "https://github.com/iobroker-community-adapters/ioBroker.botvac"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "dependencies": {
     "node-botvac": "PeterVoronov/node-botvac#0.4.2-schedule-write",
