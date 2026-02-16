@@ -314,30 +314,30 @@ adapter.on('stateChange', function (id, state) {
                     //that's why we need to get current one
                     adapter.log.debug('get schedule: ' + JSON.stringify(schedule));
                     //status of schedule is returned from, but has not be passed to
-                    if (schedule.hasOwnProperty('enabled')) {
+                    if (Object.prototype.hasOwnProperty.call(schedule, 'enabled')) {
                         delete schedule['enabled'];
                     }
                     adapter.log.debug('update schedule: ' + JSON.stringify(schedule));
                     // to be careful, if we have right answer
-                    if (schedule.hasOwnProperty('events')) {
+                    if (Object.prototype.hasOwnProperty.call(schedule, 'events')) {
                         //trying to find a current day in existing schedule
                         let isDay = schedule.events.findIndex(function (element) {
-                            return element.hasOwnProperty('day') && parseInt(element.day) === day;
+                            return (
+                                Object.prototype.hasOwnProperty.call(element, 'day') && parseInt(element.day) === day
+                            );
                         });
                         //this day exists in schedule
                         if (isDay >= 0) {
                             // remove day from schedule
                             if (state.val === '') {
                                 delete schedule.events[isDay];
-                            }
-                            //replace with new time
-                            else {
+                            } else {
+                                //replace with new time
                                 schedule.events[isDay].startTime = state.val;
                             }
                             setSchedule(robotName, id, state, schedule);
-                        }
-                        //day is not exists in schedule
-                        else if (state.val !== '') {
+                        } else if (state.val !== '') {
+                            //day is not exists in schedule
                             let newDay = { day: day, startTime: state.val };
                             // lets add required properties for non minimal-1 schedule
                             if (allRobots[robotName].availableServices.schedule !== 'minimal-1') {
@@ -525,7 +525,7 @@ function main() {
 function update() {
     for (var i = 0; i < allRobotNames.length; i++) {
         //additional check, if delete nonexits robots is disabled in createRobotsObjects
-        if (allRobots.hasOwnProperty(allRobotNames[i]) && allRobots[allRobotNames[i]]) {
+        if (Object.prototype.hasOwnProperty.call(allRobots, allRobotNames[i]) && allRobots[allRobotNames[i]]) {
             updateRobot(allRobots[allRobotNames[i]]);
         }
     }
@@ -613,23 +613,23 @@ function updateRobot(robot, callback) {
             return;
         }
         adapter.log.debug('get schedule ' + JSON.stringify(state));
-        if (state.hasOwnProperty('events')) {
+        if (Object.prototype.hasOwnProperty.call(state, 'events')) {
             // is working only with minimal-1 now
             let weekDays = [];
             state.events.forEach(function (weekDay) {
-                if (weekDay.hasOwnProperty('day')) {
+                if (Object.prototype.hasOwnProperty.call(weekDay, 'day')) {
                     weekDays.push(parseInt(weekDay.day));
-                    if (weekDay.hasOwnProperty('startTime')) {
+                    if (Object.prototype.hasOwnProperty.call(weekDay, 'startTime')) {
                         adapter.setState(
                             robot.name + '.schedule.' + weekDay.day + '-startTime',
                             weekDay.startTime,
                             true,
                         );
                     }
-                    if (weekDay.hasOwnProperty('mode')) {
+                    if (Object.prototype.hasOwnProperty.call(weekDay, 'mode')) {
                         adapter.setState(robot.name + '.schedule.' + weekDay.day + '-mode', weekDay.mode, true);
                     }
-                    if (weekDay.hasOwnProperty('boundaryId')) {
+                    if (Object.prototype.hasOwnProperty.call(weekDay, 'boundaryId')) {
                         adapter.setState(
                             robot.name + '.schedule.' + weekDay.day + '-boundaryId',
                             weekDay.boundaryId,
@@ -741,7 +741,10 @@ function prepareRobotsStructure(robots, devices, callback) {
                         },
                     },
                 };
-                if (state.hasOwnProperty('availableServices') && state.availableServices.hasOwnProperty('schedule')) {
+                if (
+                    Object.prototype.hasOwnProperty.call(state, 'availableServices') &&
+                    Object.prototype.hasOwnProperty.call(state.availableServices, 'schedule')
+                ) {
                     devices[robot.name]['schedule'] = {
                         common: 'meta',
                         states: {},
