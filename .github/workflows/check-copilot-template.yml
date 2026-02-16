@@ -61,7 +61,7 @@ jobs:
       - name: Check for existing update issues
         if: steps.version-check.outputs.update_needed == 'true'
         id: existing-issues
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const issues = await github.rest.issues.listForRepo({
@@ -85,7 +85,7 @@ jobs:
             
       - name: Create update issue
         if: steps.version-check.outputs.update_needed == 'true' && steps.existing-issues.outputs.has_existing_issue == 'false'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const currentVer = '${{ steps.version-check.outputs.current_version }}';
