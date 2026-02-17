@@ -1,6 +1,6 @@
 {
   "name": "iobroker.botvac",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "ioBroker botvac Adapter",
   "author": "Pmant <patrickmo@gmx.de>",
   "contributors": [

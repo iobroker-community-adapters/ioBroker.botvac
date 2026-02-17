@@ -33,7 +33,7 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 2.3.1 (2026-02-17)
 - (copilot) Replaced deprecated deleteState(), deleteChannel(), and deleteDevice() methods with delObject()
 - (copilot) Replaced setObjectNotExists with extendObject to automatically update object configurations on adapter upgrades
 - (copilot) Migrated to ESLint 9 and @iobroker/eslint-config
@@ -57,9 +57,6 @@
 ### 2.0.2 (2023-12-23)
 - (ar7bd) SpotWidth and spotHeight are now allowed to be zero. [#29]
 - (mcm1957) Dependencies have been updated.
-
-### 2.0.1 (2023-09-20)
-- (PeterVoronov) A problem causing crashes if some devices are unreachable has been fixed [#46]
 
 ## License
 

@@ -1,4 +1,7 @@
 # Older changes
+## 2.0.1 (2023-09-20)
+- (PeterVoronov) A problem causing crashes if some devices are unreachable has been fixed [#46]
+
 ## 2.0.0 (2023-09-18)
 - (mcm1957) Migration to iobroker-community-adapters has been finalized.
 
