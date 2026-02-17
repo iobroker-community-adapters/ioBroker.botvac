@@ -34,6 +34,7 @@
     ### **WORK IN PROGRESS**
 -->
 ### **WORK IN PROGRESS**
+- (copilot) **FIXED**: Replaced deprecated deleteState(), deleteChannel(), and deleteDevice() methods with delObject()
 - (copilot) **ENHANCED**: Replaced setObjectNotExists with extendObject to automatically update object configurations on adapter upgrades
 - (copilot) **ENHANCED**: Migrated to ESLint 9 and @iobroker/eslint-config
 - (copilot) **FIXED**: Fixed undefined variable bugs in schedule handling code

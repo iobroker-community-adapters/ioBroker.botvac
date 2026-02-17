@@ -878,7 +878,7 @@ function createRobotsObjects(devices, channels, states, callback) {
                                                 object['_id'].split('.').pop(),
                                         );
                                         //delete obsolete state
-                                        adapter.deleteState(device, channel, object['_id'].split('.').pop());
+                                        adapter.delObject(object['_id']);
                                     }
                                 });
                             }
@@ -920,8 +920,8 @@ function createRobotsObjects(devices, channels, states, callback) {
                                 object['_id'].split('.').pop() +
                                 ' is not exists in cloud any more!',
                         );
-                        //delete obsolete state, disabled
-                        //adapter.deleteDevice(device);
+                        //delete obsolete device, disabled
+                        //adapter.delObject(object['_id']);
                     }
                 });
             }
@@ -950,7 +950,7 @@ function createRobotsObjects(devices, channels, states, callback) {
                                                 object['_id'].split('.').pop(),
                                         );
                                         //delete obsolete channel
-                                        adapter.deleteChannel(device, object['_id'].split('.').pop());
+                                        adapter.delObject(object['_id']);
                                     }
                                 });
                             }
