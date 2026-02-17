@@ -801,12 +801,12 @@ function createRobotsObjects(devices, channels, states, callback) {
             let state = keys.shift();
             let device = Object.keys(devices)[0];
             let channel = Object.keys(channels)[0];
-            adapter.setObjectNotExists(
+            adapter.extendObject(
                 device + '.' + channel + '.' + state,
                 { type: 'state', common: Object.assign(states[state].common, { name: state }) },
-                function (error, result) {
+                function (error, _result) {
                     if (error === null) {
-                        if (result !== undefined && states[state].common.def !== undefined) {
+                        if (states[state].common.def !== undefined) {
                             //get rid of quality equal 0x20
                             adapter.setState(device + '.' + channel + '.' + state, states[state].common.def, true);
                         }
@@ -855,34 +855,32 @@ function createRobotsObjects(devices, channels, states, callback) {
         if (keys.length) {
             let channel = keys.shift();
             let device = Object.keys(devices)[0];
-            adapter.setObjectNotExists(
+            adapter.extendObject(
                 device + '.' + channel,
                 { type: 'channel', common: Object.assign(channels[channel].common, { name: channel }) },
-                function (error, result) {
+                function (error, _result) {
                     if (error === null) {
-                        if (result === undefined || result === null) {
-                            //channel was exists before, let's check for unsupported states
-                            let statesActual = Object.keys(channels[channel].states);
-                            adapter.getStatesOf(device, channel, function (error, objects) {
-                                if (objects && !error) {
-                                    //validate every exsiting state vs supported(Actual)
-                                    objects.forEach(function (object) {
-                                        let state = object['common']['name'];
-                                        if (statesActual.indexOf(state) < 0) {
-                                            //state is not supported(Actual)
-                                            adapter.log.warn(
-                                                'Delete state: ' +
-                                                    JSON.stringify(state) +
-                                                    ' with id: ' +
-                                                    object['_id'].split('.').pop(),
-                                            );
-                                            //delete obsolete state
-                                            adapter.deleteState(device, channel, object['_id'].split('.').pop());
-                                        }
-                                    });
-                                }
-                            });
-                        }
+                        // Check for unsupported states that need to be removed
+                        let statesActual = Object.keys(channels[channel].states);
+                        adapter.getStatesOf(device, channel, function (error, objects) {
+                            if (objects && !error) {
+                                //validate every exsiting state vs supported(Actual)
+                                objects.forEach(function (object) {
+                                    let state = object['common']['name'];
+                                    if (statesActual.indexOf(state) < 0) {
+                                        //state is not supported(Actual)
+                                        adapter.log.warn(
+                                            'Delete state: ' +
+                                                JSON.stringify(state) +
+                                                ' with id: ' +
+                                                object['_id'].split('.').pop(),
+                                        );
+                                        //delete obsolete state
+                                        adapter.deleteState(device, channel, object['_id'].split('.').pop());
+                                    }
+                                });
+                            }
+                        });
                         //can initiate create states under channel
                         createRobotsObjects(devices, channels, channels[channel].states, callback);
                     }
@@ -928,31 +926,29 @@ function createRobotsObjects(devices, channels, states, callback) {
         });
         if (keys.length) {
             let device = keys.shift();
-            adapter.setObjectNotExists(device, { type: 'device', common: { name: device } }, function (error, result) {
+            adapter.extendObject(device, { type: 'device', common: { name: device } }, function (error, _result) {
                 if (error === null) {
-                    if (result === undefined || result === null) {
-                        //device was exists before, let's check for unsupported channels
-                        let channelsActual = Object.keys(devices[device]);
-                        adapter.getChannels(device, function (error, objects) {
-                            if (objects && !error) {
-                                //validate every exsiting channel
-                                objects.forEach(function (object) {
-                                    let channel = object['common']['name'];
-                                    if (channelsActual.indexOf(channel) < 0) {
-                                        //channel is not supported (Actual)
-                                        adapter.log.warn(
-                                            'Delete channel: ' +
-                                                JSON.stringify(channel) +
-                                                ' with id: ' +
-                                                object['_id'].split('.').pop(),
-                                        );
-                                        //delete obsolete channel
-                                        adapter.deleteChannel(device, object['_id'].split('.').pop());
-                                    }
-                                });
-                            }
-                        });
-                    }
+                    // Check for unsupported channels that need to be removed
+                    let channelsActual = Object.keys(devices[device]);
+                    adapter.getChannels(device, function (error, objects) {
+                        if (objects && !error) {
+                            //validate every exsiting channel
+                            objects.forEach(function (object) {
+                                let channel = object['common']['name'];
+                                if (channelsActual.indexOf(channel) < 0) {
+                                    //channel is not supported (Actual)
+                                    adapter.log.warn(
+                                        'Delete channel: ' +
+                                            JSON.stringify(channel) +
+                                            ' with id: ' +
+                                            object['_id'].split('.').pop(),
+                                    );
+                                    //delete obsolete channel
+                                    adapter.deleteChannel(device, object['_id'].split('.').pop());
+                                }
+                            });
+                        }
+                    });
                     createRobotsObjects(devices, devices[device], null, callback);
                 }
             });
