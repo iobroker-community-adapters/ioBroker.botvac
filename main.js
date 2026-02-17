@@ -804,6 +804,7 @@ function createRobotsObjects(devices, channels, states, callback) {
             adapter.extendObject(
                 device + '.' + channel + '.' + state,
                 { type: 'state', common: Object.assign(states[state].common, { name: state }) },
+                { preserve: { common: ['name'] } },
                 function (error, _result) {
                     if (error === null) {
                         if (states[state].common.def !== undefined) {
@@ -858,6 +859,7 @@ function createRobotsObjects(devices, channels, states, callback) {
             adapter.extendObject(
                 device + '.' + channel,
                 { type: 'channel', common: Object.assign(channels[channel].common, { name: channel }) },
+                { preserve: { common: ['name'] } },
                 function (error, _result) {
                     if (error === null) {
                         // Check for unsupported states that need to be removed
@@ -926,32 +928,37 @@ function createRobotsObjects(devices, channels, states, callback) {
         });
         if (keys.length) {
             let device = keys.shift();
-            adapter.extendObject(device, { type: 'device', common: { name: device } }, function (error, _result) {
-                if (error === null) {
-                    // Check for unsupported channels that need to be removed
-                    let channelsActual = Object.keys(devices[device]);
-                    adapter.getChannels(device, function (error, objects) {
-                        if (objects && !error) {
-                            //validate every exsiting channel
-                            objects.forEach(function (object) {
-                                let channel = object['common']['name'];
-                                if (channelsActual.indexOf(channel) < 0) {
-                                    //channel is not supported (Actual)
-                                    adapter.log.warn(
-                                        'Delete channel: ' +
-                                            JSON.stringify(channel) +
-                                            ' with id: ' +
-                                            object['_id'].split('.').pop(),
-                                    );
-                                    //delete obsolete channel
-                                    adapter.deleteChannel(device, object['_id'].split('.').pop());
-                                }
-                            });
-                        }
-                    });
-                    createRobotsObjects(devices, devices[device], null, callback);
-                }
-            });
+            adapter.extendObject(
+                device,
+                { type: 'device', common: { name: device } },
+                { preserve: { common: ['name'] } },
+                function (error, _result) {
+                    if (error === null) {
+                        // Check for unsupported channels that need to be removed
+                        let channelsActual = Object.keys(devices[device]);
+                        adapter.getChannels(device, function (error, objects) {
+                            if (objects && !error) {
+                                //validate every exsiting channel
+                                objects.forEach(function (object) {
+                                    let channel = object['common']['name'];
+                                    if (channelsActual.indexOf(channel) < 0) {
+                                        //channel is not supported (Actual)
+                                        adapter.log.warn(
+                                            'Delete channel: ' +
+                                                JSON.stringify(channel) +
+                                                ' with id: ' +
+                                                object['_id'].split('.').pop(),
+                                        );
+                                        //delete obsolete channel
+                                        adapter.deleteChannel(device, object['_id'].split('.').pop());
+                                    }
+                                });
+                            }
+                        });
+                        createRobotsObjects(devices, devices[device], null, callback);
+                    }
+                },
+            );
         } else {
             if (typeof callback === 'function') {
                 callback('something wrong with devices: ' + JSON.stringify(devices), false);
