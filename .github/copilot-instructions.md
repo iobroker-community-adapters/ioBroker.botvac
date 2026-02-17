@@ -636,7 +636,7 @@ try {
 - Always check if adapter is connected before API calls: `if (!this.connected) return;`
 - Clean up resources in `unload()` method (timers, intervals, connections)
 - Use `this.setState()` for updating object values
-- Use `this.setObjectNotExists()` for creating objects
+- Use `this.extendObject()` for creating or updating objects (preferred over `setObjectNotExists` for automatic config updates)
 - Always provide proper object definitions with type, role, read/write flags
 - Use meaningful state IDs following ioBroker naming conventions
 
@@ -1056,7 +1056,7 @@ class BotVac extends utils.Adapter {
 ```javascript
 async createStates() {
     // Command states (writable)
-    await this.setObjectNotExists('commands.clean', {
+    await this.extendObject('commands.clean', {
         type: 'state',
         common: {
             name: 'Start cleaning',
@@ -1070,7 +1070,7 @@ async createStates() {
     });
     
     // Status states (read-only)
-    await this.setObjectNotExists('status.canStart', {
+    await this.extendObject('status.canStart', {
         type: 'state',
         common: {
             name: 'Can start cleaning',
