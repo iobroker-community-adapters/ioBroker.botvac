@@ -34,11 +34,11 @@
     ### **WORK IN PROGRESS**
 -->
 ### **WORK IN PROGRESS**
-- (copilot) **FIXED**: Replaced deprecated deleteState(), deleteChannel(), and deleteDevice() methods with delObject()
-- (copilot) **ENHANCED**: Replaced setObjectNotExists with extendObject to automatically update object configurations on adapter upgrades
-- (copilot) **ENHANCED**: Migrated to ESLint 9 and @iobroker/eslint-config
-- (copilot) **FIXED**: Fixed undefined variable bugs in schedule handling code
-- (copilot) **FIXED**: Fixed async callback bugs with mode and boundary variables
+- (copilot) Replaced deprecated deleteState(), deleteChannel(), and deleteDevice() methods with delObject()
+- (copilot) Replaced setObjectNotExists with extendObject to automatically update object configurations on adapter upgrades
+- (copilot) Migrated to ESLint 9 and @iobroker/eslint-config
+- (copilot) Fixed undefined variable bugs in schedule handling code
+- (copilot) Fixed async callback bugs with mode and boundary variables
 
 ### 2.3.0 (2026-02-16)
 - (mcm1957) Adapter requires node.js >= 20 now
