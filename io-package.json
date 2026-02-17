@@ -158,6 +158,9 @@
     "compact": false,
     "connectionType": "cloud",
     "dataSource": "poll",
+    "adminUI": {
+      "config": "html"
+    },
     "dependencies": [
       {
         "js-controller": ">=6.0.11"
