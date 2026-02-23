@@ -33,6 +33,10 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+- (copilot) Adapter requires admin >= 7.7.22 now
+
 ### 2.3.1 (2026-02-17)
 - (copilot) Replaced deprecated deleteState(), deleteChannel(), and deleteDevice() methods with delObject()
 - (copilot) Replaced setObjectNotExists with extendObject to automatically update object configurations on adapter upgrades
