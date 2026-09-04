@@ -1,0 +1,7 @@
+{
+  "botvac adapter settings": "Настройки адаптера botvac",
+  "Email": "Email",
+  "Password": "Password",
+  "Poll Interval (seconds)": "Интервал опроса (секунды)",
+  "on save adapter restarts with new config immediately": "Сразу после сохранения настроек драйвер перезапуститься с новыми значениями"
+}
