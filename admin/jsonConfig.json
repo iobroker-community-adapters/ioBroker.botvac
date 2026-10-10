@@ -1,0 +1,54 @@
+{
+  "i18n": true,
+  "type": "panel",
+  "items": {
+    "_header": {
+      "type": "header",
+      "text": "botvac adapter settings",
+      "size": 2,
+      "xs": 12,
+      "sm": 12,
+      "md": 12,
+      "lg": 12,
+      "xl": 12
+    },
+    "mail": {
+      "type": "text",
+      "label": "Email",
+      "xs": 12,
+      "sm": 12,
+      "md": 6,
+      "lg": 6,
+      "xl": 6
+    },
+    "password": {
+      "type": "password",
+      "label": "Password",
+      "xs": 12,
+      "sm": 12,
+      "md": 6,
+      "lg": 6,
+      "xl": 6
+    },
+    "pollInterval": {
+      "type": "number",
+      "label": "Poll Interval (seconds)",
+      "min": 60,
+      "step": 1,
+      "xs": 12,
+      "sm": 12,
+      "md": 6,
+      "lg": 6,
+      "xl": 6
+    },
+    "_restartInfo": {
+      "type": "staticText",
+      "text": "on save adapter restarts with new config immediately",
+      "xs": 12,
+      "sm": 12,
+      "md": 12,
+      "lg": 12,
+      "xl": 12
+    }
+  }
+}
