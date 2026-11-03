@@ -1,0 +1,7 @@
+{
+  "botvac adapter settings": "Botvac Adapter Einstellungen",
+  "Email": "Email",
+  "Password": "Passwort",
+  "Poll Interval (seconds)": "Abfrageintervall (Sekunden)",
+  "on save adapter restarts with new config immediately": "Beim Speichern von Einstellungen der Adapter wird sofort neu gestartet."
+}
